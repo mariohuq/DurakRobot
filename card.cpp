@@ -80,7 +80,3 @@ iCard* CardManager::get(std::string& suit, std::string& rank) {
 
 	return nullptr;
 }
-
-iCard* CardManager::get(std::pair<std::string, std::string>& key) {
-	return this->library[key];
-}

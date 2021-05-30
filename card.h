@@ -43,5 +43,4 @@ public:
 	~CardManager(void);
 	std::vector<iCard*> getall(void);
 	iCard* get(std::string&, std::string&);
-	iCard* get(std::pair<std::string, std::string>&);
 };
