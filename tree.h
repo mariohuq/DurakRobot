@@ -4,71 +4,63 @@
 
 /* Tree (data structure) support */
 class Node {
-private:
-	int _degree;
-	Data* data;
-	Node* _father = nullptr;
-	std::vector<Node*> children;
+	Data* data_;
+	Node* father_ = nullptr;
+	std::vector<Node*> children_;
 
 public:
-	Node(void);
 	Node(const Data& data);
-	~Node(void);
+	~Node();
 
-	std::vector<Node*>::const_iterator begin(void) const;
-	std::vector<Node*>::const_iterator end(void) const;
+	std::vector<Node*>::const_iterator begin() const;
+	std::vector<Node*>::const_iterator end() const;
 
-public:
-	Data* get(void) const;
-	int degree(void) const;
-	Node* father(void) const;
+	Data* get() const;
+	int degree() const;
+	Node* father() const;
 
 	void add(Node*& child);
 	void add(const Data& data);
-	void remove(const int index);
+	void remove(int index);
 
 	Node* operator[] (int index);
 	const Node* operator[] (int index) const;
-
-	//friend class Iterator;
 };
 
 /* Traversing support */
-template <typename Contaniner>
+template <typename Container>
 class Traverse {
 protected:
-	Node* current;
-	bool running = true;
-	Contaniner unvisited;
+	Node* current_;
+	bool running_ = true;
+	Container unvisited_;
 
 public:
-	// Prevent the compiler from generating a default constructor
-	Traverse(void) { this->current = nullptr; }
+  virtual ~Traverse() = default;
 
 	typedef Node* data;
-	Traverse(Node* root) {
-		this->unvisited.push(root);
-		this->current = root;
+
+  explicit Traverse(Node* root)
+		: current_(root)
+    , unvisited_{{root}} {	}
+
+	bool status() const {
+		return running_;
 	}
 
-	bool status(void) const {
-		return this->running;
+	virtual void next() = 0;
+
+	data get() const {
+		return current_;
 	}
 
-	virtual void next(void) = 0;
-
-	data get(void) const {
-		return this->current;
-	}
-
-	data yield(void) {
+	data yield() {
 		try {
-			this->next();
-			data current = this->current;
-			return current;
+			next();
+			return current_;
 		}
-		catch (std::out_of_range) {
-			this->running = false;
+		catch (std::out_of_range&) {
+			running_ = false;
 			return nullptr;
 		}
 	}
@@ -81,19 +73,19 @@ public:
 */
 class BFSTraverse : public Traverse<std::queue<Node*>> {
 	using Traverse::Traverse;
-	void next(void) {
+	void next() override {
 		// If queue is empty
-		if (!this->unvisited.size())
+		if (this->unvisited_.empty())
 			throw std::out_of_range("traverse ended.");
 
-		this->current = this->unvisited.front();
-		this->unvisited.pop();
+		current_ = unvisited_.front();
+		unvisited_.pop();
 
 		// Traversing the child nodes to the queue
-		if (!this->current->degree())
+		if (!current_->degree())
 			return;
-		for (auto child : *(this->current))
-			this->unvisited.push(child);
+		for (auto child : *(current_))
+			unvisited_.push(child);
 	}
 };
 
@@ -103,19 +95,19 @@ class BFSTraverse : public Traverse<std::queue<Node*>> {
 */
 class DFSTraverse : public Traverse<std::stack<Node*>> {
 	using Traverse::Traverse;
-	void next(void) {
+	void next() override {
 		// If list if empty
-		if (!this->unvisited.size())
+		if (this->unvisited_.empty())
 			throw std::out_of_range("traverse ended.");
 
-		this->current = this->unvisited.top();
-		this->unvisited.pop();
+		this->current_ = this->unvisited_.top();
+		this->unvisited_.pop();
 
 		// Traversing the child nodes to the queue
-		if (!this->current->degree())
+		if (!this->current_->degree())
 			return;
-		for (auto child : *(this->current))
-			this->unvisited.push(child);
+		for (auto child : *(this->current_))
+			this->unvisited_.push(child);
 	}
 };
 
@@ -125,27 +117,25 @@ class DFSTraverse : public Traverse<std::stack<Node*>> {
 	std::vector<Node*> path(const Node*); // Find path for specified node
 */
 class Tree {
-private:
-	Node* root;
+	Node* root_;
 
 public:
 	Tree(Node*);
-	~Tree(void);
-	bool exist(const Node*);
-	std::stack<Node*> search(const Node*);
+	~Tree();
+	bool exist(const Node*) const;
+	std::stack<Node*> search(const Node*) const;
 	static std::stack<Node*> path(const Node*);
 
 	// Give an iterator that generates a root node to a leaf node
 	class Parser {
-	private:
-		bool running = true;
-		DFSTraverse traverser;
+		bool running_ = true;
+		DFSTraverse traverser_;
 
 	public:
 		Parser(Node*);
-		bool status(void) const;
-		std::stack<Node*> yield(void);
+		bool status() const;
+		std::stack<Node*> yield();
 	};
 
-	Tree::Parser leaves(void);
+	Parser leaves() const;
 };
