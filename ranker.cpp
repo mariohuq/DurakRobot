@@ -13,7 +13,7 @@ Ranker::Ranker(const iCard* trump) :
 
 
 double Ranker::trump(const iCard* card) {
-	if (card->suit() == this->_trump->suit())
+	if (card->suit() == _trump->suit())
 		return global::trump_factor;
 	return 1.0;
 }
