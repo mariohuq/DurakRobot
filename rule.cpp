@@ -6,12 +6,12 @@ bool Rule::istrump(const iCard* card) {
 	return card->suit() == this->trump->suit();
 }
 
-iCard* Rule::last(std::vector<iCard*>& desk) {
+const iCard* Rule::last(std::vector<const iCard*>& desk) {
 	if (desk.size() == 0) return nullptr;
 	return desk.back();
 }
 
-std::unordered_set<std::string> Rule::shown(std::vector<iCard*>& desk) {
+std::unordered_set<std::string> Rule::shown(std::vector<const iCard*>& desk) {
 	std::unordered_set<std::string> shown;
 	for (auto& card : desk)
 		shown.insert(card->rank());
@@ -20,17 +20,17 @@ std::unordered_set<std::string> Rule::shown(std::vector<iCard*>& desk) {
 
 Rule::Rule(const iCard* trump) : trump(trump) {}
 
-std::vector<iCard*> Rule::attack(std::vector<iCard*>& desk, std::vector<iCard*>& inhand) {
+std::vector<const iCard*> Rule::attack(std::vector<const iCard*>& desk, std::vector<const iCard*>& inhand) {
 	
 	// If inhand is empty
-	if (inhand.size() == 0) return std::vector<iCard*>();
+	if (inhand.size() == 0) return std::vector<const iCard*>();
 
 	// When the offense board's desktop is empty
 	// you can play every cards.
 	if (desk.size() == 0) return inhand;
 
 	// Otherwise, you can only play cards that you have ever shown.
-	std::vector<iCard*> possible;
+	std::vector<const iCard*> possible;
 	std::unordered_set<std::string> shown = this->shown(desk);
 	std::unordered_set<std::string>::iterator notexist = shown.end();
 
@@ -45,13 +45,13 @@ std::vector<iCard*> Rule::attack(std::vector<iCard*>& desk, std::vector<iCard*>&
 	return possible;
 }
 
-std::vector<iCard*> Rule::defend(std::vector<iCard*>& desk, std::vector<iCard*>& inhand) {
+std::vector<const iCard*> Rule::defend(std::vector<const iCard*>& desk, std::vector<const iCard*>& inhand) {
 
 	// If inhand or desk is empty
 	if (inhand.size() == 0) return inhand;
 
 	// In defend module, you can play card with bigger or trump card
-	std::vector<iCard*> possible;
+	std::vector<const iCard*> possible;
 	const iCard* last = this->last(desk);
 
 	std::string trump_suit = trump->suit();
@@ -70,7 +70,7 @@ std::vector<iCard*> Rule::defend(std::vector<iCard*>& desk, std::vector<iCard*>&
 			if (card_suit != trump_suit)
 				continue;
 
-			if (card->operator>(last))
+			if (card > last)
 				possible.push_back(card);
 
 			continue;

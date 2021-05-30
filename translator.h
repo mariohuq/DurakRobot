@@ -7,7 +7,7 @@
 #include "card.h"
 
 // translate card* to icard*
-static iCard* icard(CardManager* manager, const Card* card) {
+static const iCard* icard(CardManager* manager, const Card* card) {
 	if ((card == Dealer::GetNocard())
 		||
 		(card == Dealer::GetPas())
@@ -18,6 +18,6 @@ static iCard* icard(CardManager* manager, const Card* card) {
 	}
 	std::string suit = Dealer::SuitName(card);
 	std::string rank = Dealer::RankName(card);
-	iCard* target = manager->get(suit, rank);
+	const iCard* target = manager->get(suit, rank);
 	return target;
 }

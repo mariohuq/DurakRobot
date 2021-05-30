@@ -43,13 +43,13 @@ double Thinker::ranksum(bool starting, std::stack<Node*>& opath) {
 	return sum;
 }
 
-iCard* Thinker::byrank(iPlayer*& player) {
-	std::vector<iCard*> list = player->analysis();
+const iCard* Thinker::byrank(iPlayer*& player) {
+	std::vector<const iCard*> list = player->analysis();
 
 	// If list is empty return nullptr
 	if (list.empty()) return nullptr;
 
-	iCard* result = list[0];
+	const iCard* result = list[0];
 	double minrank = player->rank(list[0]);
 
 	for (auto& card : list) {
@@ -64,7 +64,7 @@ iCard* Thinker::byrank(iPlayer*& player) {
 	return result;
 }
 
-Tree* Thinker::maketree(bool status, iCard* card) {
+Tree* Thinker::maketree(bool status, const iCard* card) {
 	TreeMaker maker(status, card, this->we, this->enemy, this->situation);
 	Tree* tree = maker.make();
 
@@ -94,15 +94,15 @@ void Thinker::showpath(std::stack<Node*> path, double rank) {
 		Analyze the situation based on 
 		the cards the enemy has already played.
 */
-iCard* Thinker::attack(void) {
+const iCard* Thinker::attack(void) {
 	return this->byrank(this->we); 
 }
 
-iCard* Thinker::attack(int) {
+const iCard* Thinker::attack(int) {
 	// record all ways could be
-	std::map<double, iCard*> record;
+	std::map<double, const iCard*> record;
 
-	std::vector<iCard*> list = this->we->analysis();
+	std::vector<const iCard*> list = this->we->analysis();
 	// if no cards can be play, return nullptr
 	if (list.empty()) return nullptr;
 
@@ -127,8 +127,8 @@ iCard* Thinker::attack(int) {
 	return it->second;
 }
 
-iCard* Thinker::defend(iCard* action) {
-	std::map<double, iCard*> record;
+const iCard* Thinker::defend(const iCard* action) {
+	std::map<double, const iCard*> record;
 	if (action == nullptr) return nullptr;
 
 	Tree* tree = this->maketree(global::defend, action);
@@ -160,7 +160,7 @@ iCard* Thinker::defend(iCard* action) {
 	return it->second;
 }
 
-Node* TreeMaker::complex(iCard*& card, iPlayer*& player) {
+Node* TreeMaker::complex(const iCard*& card, iPlayer*& player) {
 	// This function use card to create Node in ***heap***
 	double rank, possibility;
 	if (card != nullptr) {
@@ -176,7 +176,7 @@ Node* TreeMaker::complex(iCard*& card, iPlayer*& player) {
 }
 
 TreeMaker::TreeMaker(
-	bool mode, iCard* rootcard, iPlayer* attacker, 
+	bool mode, const iCard* rootcard, iPlayer* attacker, 
 	iPlayer* defender, Counter* situation
 ) {
 	this->trashbin.clear();
@@ -218,7 +218,7 @@ Tree* TreeMaker::make(void) {
 		Prediction* prediction = this->tasks.front();
 		bool mode = prediction->mode;
 		int layer = prediction->layer;
-		iCard* card = prediction->card;
+		const iCard* card = prediction->card;
 		Node* father = prediction->father;
 		Counter* situation = prediction->situation;
 		this->tasks.pop();
