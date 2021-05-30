@@ -243,7 +243,7 @@ double Ranker::zipvalue(double value) {
 Этот интерфейс использует математическую функцию для сжатия произвольно больших значений в интервале `[1, 2]`. Изображение функции выглядит следующим образом:
 ![zipvalue](images/zipvalue.png)
 
-Его функция определяется следующим образом: ![\frac{\arctan{x}}{0.5\cdot\pi} + 1](http://latex.codecogs.com/gif.latex?\\frac{\\arctan{x}}{0.5\\cdot\\pi}+1)
+Его функция определяется следующим образом: ![\frac{\arctan{x}}{0.5\cdot\pi} + 1](https://latex.codecogs.com/svg.latex?\frac{\arctan{x}}{0.5\cdot\pi})
 
 ### `Ranker::trump`
 
@@ -440,12 +440,12 @@ public:
 		1. `let a = unknown.size ()` - вычислить размер неизвестной стопки
 		2. `let b = respnd.size ()` - подсчитать количество известных рук
 		3. `let c = total` - получить общее количество рук
-		4. Вероятность: ![\frac{c - b}{a + c -b}](http://latex.codecogs.com/gif.latex?\\frac{c-b}{a+c-b})
+		4. Вероятность: ![\frac{c - b}{a + c -b}](https://latex.codecogs.com/svg.latex?\frac{c-b}{a&plus;c-b})
 
 Принцип таков:
 
 Задача эквивалентна извлечению m из n объектов и нахождению указанного объекта, что может быть известно из знаний теории вероятностей:
-![\frac{C_{m-1}^{n-1}}{C_m^n} = m / n = \frac{c - b}{a + c - b}](http://latex.codecogs.com/gif.latex?\\frac{C_{m-1}^{n-1}}{C_m^n}=m/n=\\frac{c-b}{a+c-b})
+![\frac{C_{m-1}^{n-1}}{C_m^n} = m / n = \frac{c - b}{a + c - b}](https://latex.codecogs.com/svg.latex?\frac{C_{m-1}^{n-1}}{C_m^n}&space;=m/n=\frac{c-b}{a&plus;c-b})
 
 ## Часть 6 - Реализация алгоритма дерева
 
