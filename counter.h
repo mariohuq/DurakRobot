@@ -23,8 +23,6 @@ public:
 
 public:
 	int join(iPlayer* player); // join a player
-	iPlayer* player(int index) const; // return player
-	iPlayer* player(std::string name) const; // return player
 
 public:
 	void grab(iPlayer*);
