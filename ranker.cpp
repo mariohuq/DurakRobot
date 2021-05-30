@@ -9,7 +9,7 @@ double Ranker::zipvalue(double value) {
 	return atan(value) / (0.5 * M_PI) + 1; 
 }
 
-Ranker::Ranker(Counter<global::players>* counter, const iCard* trump) :
+Ranker::Ranker(Counter* counter, const iCard* trump) :
 	_counter(counter), _trump(trump) {}
 
 // Add weight to the trump card

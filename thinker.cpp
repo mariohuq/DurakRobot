@@ -7,7 +7,7 @@
 #include "thinker.h"
 
 Thinker::Thinker(iPlayer* we, iPlayer* enemy,
-	Counter<global::players>* situation) :
+	Counter* situation) :
 	we(we), enemy(enemy), situation(situation)
 {}
 
@@ -177,7 +177,7 @@ Node* TreeMaker::complex(iCard*& card, iPlayer*& player) {
 
 TreeMaker::TreeMaker(
 	bool mode, iCard* rootcard, iPlayer* attacker, 
-	iPlayer* defender, Counter<global::players>* situation
+	iPlayer* defender, Counter* situation
 ) {
 	this->trashbin.clear();
 	this->attacker = attacker;
@@ -195,7 +195,7 @@ TreeMaker::TreeMaker(
 	prediction->mode = mode;
 	prediction->card = rootcard;
 	prediction->father = nullptr;
-	prediction->situation = new Counter<global::players>(*situation);
+	prediction->situation = new Counter(*situation);
 	this->trashbin.push_back(prediction->situation);
 
 	// add prediction to tasks queue
@@ -220,7 +220,7 @@ Tree* TreeMaker::make(void) {
 		int layer = prediction->layer;
 		iCard* card = prediction->card;
 		Node* father = prediction->father;
-		Counter<global::players>* situation = prediction->situation;
+		Counter* situation = prediction->situation;
 		this->tasks.pop();
 
 		// Get player
@@ -265,7 +265,7 @@ Tree* TreeMaker::make(void) {
 					prediction->layer = layer + 1;
 					prediction->father = child;
 					prediction->situation = \
-						new Counter<global::players>(*situation);
+						new Counter(*situation);
 					this->trashbin.push_back(prediction->situation);
 					this->tasks.push(prediction);
 				}

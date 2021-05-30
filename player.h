@@ -46,7 +46,7 @@ protected:
 	Rule* analyser = nullptr;
 	Ranker* ranker = nullptr;
 	CardManager* manager = nullptr;
-	Counter<global::players>* counter = nullptr;
+	Counter* counter = nullptr;
 	iPlayer* enemy = nullptr;
 	Thinker* thinker = nullptr;
 

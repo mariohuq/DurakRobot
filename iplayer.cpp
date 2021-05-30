@@ -94,7 +94,7 @@ bool iPlayer::status(void) const { return this->_status; }
 int iPlayer::index(void) const { return this->_index; }
 std::string iPlayer::name(void) const { return this->_name; }
 void iPlayer::set_index(int index) { this->_index = index; }
-void iPlayer::set_counter(Counter<global::players>* counter) { this->counter = counter; }
+void iPlayer::set_counter(Counter* counter) { this->counter = counter; }
 void iPlayer::set_analyser(Rule* analyser) { this->analyser = analyser; }
 void iPlayer::set_ranker(Ranker* ranker) { this->ranker = ranker; }
 bool iPlayer::us(void) const { return this->_we; }

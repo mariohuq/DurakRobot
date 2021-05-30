@@ -2,24 +2,23 @@
 
 #include "header.h"
 
-template <int number>
 class Counter {
 private:
 	std::vector<iCard*> _desk; // cards in desk
-	std::vector<iCard*> _unknown; // card we don't know temproary
+	std::vector<iCard*> _unknown; // card we don't know temporary
 
 private:
 	CardManager* manager;
-	std::array<iPlayer*, number> players; // all players
-	std::array<size_t, number> count; // count of every one's cards
-	std::array<std::vector<iCard*>, number> inhand; // cards for everyone
+	std::array<iPlayer*, global::players> players; // all players
+	std::array<size_t, global::players> count; // count of every one's cards
+	std::array<std::vector<iCard*>, global::players> inhand; // cards for everyone
 
 public:
 	Counter(CardManager&, iCard*);
-	Counter(const Counter<global::players>& counter);
+	Counter(const Counter& counter);
 
-	// Moveout one card from a specified vector
-	static void moveout(std::vector<iCard*>& set, iCard*& target);
+	// Move out one card from a specified vector
+	static void moveOut(std::vector<iCard*>& set, iCard*& target);
 
 public:
 	int join(iPlayer* player); // join a player

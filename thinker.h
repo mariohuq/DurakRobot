@@ -6,7 +6,7 @@ class Thinker {
 private:
 	iPlayer* we;
 	iPlayer* enemy;
-	Counter<global::players>* situation;
+	Counter* situation;
 
 private:
 	Tree* maketree(bool status, iCard* card);
@@ -16,7 +16,7 @@ private:
 
 public:
 	Thinker(iPlayer* we, iPlayer* enemy,
-		Counter<global::players>* situation);
+		Counter* situation);
 
 public:
 	iCard* attack(void);
@@ -30,7 +30,7 @@ struct Prediction {
 	int layer; // current prediction's layer
 	iCard* card; // operate card
 	Node* father; // father node
-	Counter<global::players>* situation; // layer
+	Counter* situation; // layer
 };
 
 class TreeMaker {
@@ -42,11 +42,11 @@ private:
 private:
 	std::queue<Prediction*> tasks; // tasks queue
 	static Node* complex(iCard*& card, iPlayer*& player);
-	std::vector<Counter<global::players>*> trashbin;
+	std::vector<Counter*> trashbin;
 
 public:
 	TreeMaker(bool mode, iCard* rootcard, iPlayer* attacker, 
-		iPlayer* defender, Counter<global::players>* situation);
+		iPlayer* defender, Counter* situation);
 	~TreeMaker(void);
 
 public:

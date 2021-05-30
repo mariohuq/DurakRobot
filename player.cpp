@@ -19,7 +19,7 @@ Player::Player(const char* name, CardManager* manager) {
 	// Initialization module
 	this->manager = manager;
 	this->trump = icard(this->manager, Dealer::GetTrump());
-	this->counter = new Counter<global::players>(
+	this->counter = new Counter(
 		*this->manager, this->trump);
 	this->analyser = new Rule(this->trump);
 	this->ranker = new Ranker(this->counter, this->trump);
