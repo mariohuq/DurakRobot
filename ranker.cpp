@@ -3,22 +3,19 @@
 #include "iplayer.h"
 #include "ranker.h"
 
-// Scale the function value field to [1,2]
-double Ranker::zipvalue(double value) {
+double Ranker::zip_value(double value) {
 	return atan(value) / (0.5 * M_PI) + 1; 
 }
 
 Ranker::Ranker(const iCard* trump) :
 	_trump(trump) {}
 
-
-double Ranker::trump(const iCard* card) {
+double Ranker::trump(const iCard* card) const {
 	if (card->suit() == _trump->suit())
 		return global::trump_factor;
 	return 1.0;
 }
 
-// Calc absolute rank for card
 double Ranker::absolute(const iCard* card) {
   const double raw = global::iranks[card->rank()];
 	return global::unconstrained_factor * raw;
@@ -27,7 +24,7 @@ double Ranker::absolute(const iCard* card) {
 double Ranker::progress(size_t left) {
   const double all = global::total;
   const double progress = all / left;
-	return zipvalue(progress);
+	return zip_value(progress);
 }
 
 double Ranker::repeat(iPlayer* player, const iCard* target) {
