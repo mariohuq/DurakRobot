@@ -43,19 +43,6 @@ int Counter<global::players>::join(iPlayer* player) {
 	return index;
 }
 
-iPlayer* Counter<global::players>::player(int index) const {
-	if (index > int(this->players.max_size()) - 1)
-		return nullptr;
-	return this->players[index];
-}
-
-iPlayer* Counter<global::players>::player(std::string name) const {
-	for (iPlayer* player : this->players)
-		if (player->name() == name)
-			return player;
-	return nullptr;
-}
-
 void Counter<global::players>::grab(iPlayer* player) {
 	int index = player->index();
 	std::vector<iCard*>& inhand = this->inhand[index];
