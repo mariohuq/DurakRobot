@@ -22,7 +22,7 @@ Player::Player(const char* name, CardManager* manager) {
 	this->counter = new Counter(
 		*this->manager, this->trump);
 	this->analyser = new Rule(this->trump);
-	this->ranker = new Ranker(this->counter, this->trump);
+	this->ranker = new Ranker(this->trump);
 
 	// Initialize the player and the imaginary enemy
 	this->we = new iPlayer(true, false, global::defend, name);
