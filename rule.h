@@ -6,11 +6,11 @@ class Rule {
 private:
 	const iCard* trump;
 	bool istrump(const iCard*); // Return if it's trump card
-	static iCard* last(std::vector<iCard*>&); // Return last card in desk
-	static std::unordered_set<std::string> shown(std::vector<iCard*>&); // Return list for shown card
+	static const iCard* last(std::vector<const iCard*>&); // Return last card in desk
+	static std::unordered_set<std::string> shown(std::vector<const iCard*>&); // Return list for shown card
 		
 public:
 	Rule(const iCard*);
-	std::vector<iCard*> attack(std::vector<iCard*>&, std::vector<iCard*>&); // Analysis for attack
-	std::vector<iCard*> defend(std::vector<iCard*>&, std::vector<iCard*>&); // Analysis for defend
+	std::vector<const iCard*> attack(std::vector<const iCard*>&, std::vector<const iCard*>&); // Analysis for attack
+	std::vector<const iCard*> defend(std::vector<const iCard*>&, std::vector<const iCard*>&); // Analysis for defend
 };
