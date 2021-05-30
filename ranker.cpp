@@ -8,10 +8,10 @@ double Ranker::zip_value(double value) {
 }
 
 Ranker::Ranker(const iCard* trump) :
-	_trump(trump) {}
+	trump_(trump) {}
 
 double Ranker::trump(const iCard* card) const {
-	if (card->suit() == _trump->suit())
+	if (card->suit() == trump_->suit())
 		return global::trump_factor;
 	return 1.0;
 }
