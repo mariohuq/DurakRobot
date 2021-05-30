@@ -43,7 +43,7 @@ private:
 
 protected:
 	const iCard* trump = nullptr;
-	Rule* analyser = nullptr;
+	Rule* analyzer = nullptr;
 	Ranker* ranker = nullptr;
 	CardManager* manager = nullptr;
 	Counter* counter = nullptr;

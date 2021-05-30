@@ -21,7 +21,7 @@ Player::Player(const char* name, CardManager* manager) {
 	this->trump = icard(this->manager, Dealer::GetTrump());
 	this->counter = new Counter(
 		*this->manager, this->trump);
-	this->analyser = new Rule(this->trump);
+	this->analyzer = new Rule(this->trump);
 	this->ranker = new Ranker(this->trump);
 
 	// Initialize the player and the imaginary enemy
@@ -30,12 +30,12 @@ Player::Player(const char* name, CardManager* manager) {
 
 	this->we->set_ranker(this->ranker);
 	this->we->set_counter(this->counter);
-	this->we->set_analyser(this->analyser);
+	this->we->set_analyzer(this->analyzer);
 	this->we->set_index(this->counter->join(this->we));
 
 	this->enemy->set_ranker(this->ranker);
 	this->enemy->set_counter(this->counter);
-	this->enemy->set_analyser(this->analyser);
+	this->enemy->set_analyzer(this->analyzer);
 	this->enemy->set_index(this->counter->join(this->enemy));
 
 	// Initialization analyzer
@@ -48,7 +48,7 @@ Player::Player(const char* name, CardManager* manager) {
 
 Player::~Player(void) {
 	// Release all created resources
-	delete this->analyser;
+	delete this->analyzer;
 	delete this->ranker;
 	delete this->counter;
 	delete this->we;
@@ -143,7 +143,7 @@ void Player::PutCard(void) {
 	std::cout << this->we->name() << " - Analysis: " << std::endl;
 
 	// If the desktop is empty, hit card according to the rank
-	// otherwise, hit be analyser
+	// otherwise, hit be analyzer
 	if (this->counter->desk().empty())
 		target = this->thinker->attack();
 	else
