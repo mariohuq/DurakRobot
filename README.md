@@ -21,7 +21,7 @@
 
 ### Class `iCard`
 
-```
+```cpp
 class iCard {
 private:
 	std::string _suit;
@@ -51,7 +51,7 @@ public:
 
 ### Class `CardManager`
 
-```
+```cpp
 class CardManager {
 private:
 	std::vector<iCard*> all;
@@ -71,7 +71,7 @@ public:
 
 Поскольку `std :: unordered_map` требуется в реализации` CardManager` с `std :: pair <std :: string, std :: string>` в качестве ключа, то здесь реализовано расширение `hash` пользовательского типа. :
 
-```
+```cpp
 // Specialized hash support for pair<string, string>
 namespace std {
 	template<>
@@ -96,7 +96,7 @@ namespace std {
 Согласно правилам игры, атакующий должен найти карту с номером на текущем рабочем столе в качестве атакующей руки, поэтому сначала нужно посчитать число, появившееся за текущим столом.
 Настройте частный интерфейс в классе `shown`, чтобы вернуть серийный номер карты, которая когда-либо появлялась. Обратите внимание, что интерфейс возвращает тип `std :: unordered_set <std :: string>`, потому что хранение карты в карте осуществляется стандартным типом строки, и здесь нам нужно часто находить строку Внутри этой последовательности использование хеш-таблицы в возвращаемом значении может помочь повысить производительность.
 
-```
+```cpp
 std::vector<iCard*> Rule::attack(std::vector<iCard*>& desk, std::vector<iCard*>& inhand) {
 	
 	// If inhand is empty
@@ -131,7 +131,7 @@ std::vector<iCard*> Rule::attack(std::vector<iCard*>& desk, std::vector<iCard*>&
 Здесь нам нужно определить, является ли карта козырем, поэтому мы определяем частный интерфейс `istrump` в классе, который используется для определения того, является ли указанная карта козырем.
 В то же время, мы также должны получить последнюю карту на столе в качестве карты для защиты. Здесь, поскольку `vector` упорядочен, каждая из наших операций` push_back` используется для вытягивания карты в таблицу, поэтому, когда вам нужно извлечь последнюю карту, вы можете передать `std::vector<iCard*>::back` реализация. Эта часть программного кода реализована в `Rule::last`.
 
-```
+```cpp
 std::vector<iCard*> Rule::defend(std::vector<iCard*>& desk, std::vector<iCard*>& inhand) {
 
 	// If inhand or desk is empty
@@ -200,7 +200,7 @@ std::vector<iCard*> Rule::defend(std::vector<iCard*>& desk, std::vector<iCard*>&
 
 Исходя из вышеизложенных соображений, чтобы отделить программу, мы определяем четыре вышеуказанных правила как четыре открытых интерфейса, реализованных в `ranker.h`:
 
-```
+```cpp
 class Ranker {
 private:
 	Counter<global::players>* _counter;
@@ -219,7 +219,7 @@ public:
 
 ### `Ranker::progress` - Рассчитать ход игры
 
-```
+```cpp
 // Calc for progress coefficent
 double Ranker::progress(void) {
 	double all = global::total;
@@ -233,7 +233,7 @@ double Ranker::progress(void) {
 В этом разделе мы читаем количество позиционных карт в игре - `left`, которое делит начальное количество карт в игре (по умолчанию 52, определено в` global :: total`), и получается прогресс в игре. Соответствующий фактор (это значение должно быть больше, чем `1`).
 Следует отметить, что когда игра только началась, значение может быть очень большим (например, `42/2 = 21`), нам нужно сжать его в диапазоне` [1, 2] `, используйте здесь` Ranker :: zipvalue` интерфейс:
 
-```
+```cpp
 // Scale the function value field to [1,2]
 double Ranker::zipvalue(double value) {
 	return atan(value) / (0.5 * M_PI) + 1; 
@@ -249,7 +249,7 @@ double Ranker::zipvalue(double value) {
 
 Интерфейс реализован следующим образом:
 
-```
+```cpp
 // Add weight to the trump card
 double Ranker::trump(const iCard* card) {
 	if (card->suit() == this->_trump->suit())
@@ -264,7 +264,7 @@ double Ranker::trump(const iCard* card) {
 
 Этот интерфейс используется для вычисления значений веса, основанных исключительно на торговой марке, умножьте марку на значение пользовательского параметра `global::unsstrained_factor`, чтобы получить:
 
-```
+```cpp
 // Calc absolute rank for card
 double Ranker::absolute(const iCard* card) {
 	std::string rank = card->rank();
@@ -277,7 +277,7 @@ double Ranker::absolute(const iCard* card) {
 
 Интерфейс считает количество повторяющихся карт в руке и умножает его на пользовательский параметр `global::repetition_factor`, чтобы получить:
 
-```
+```cpp
 double Ranker::repeat(iPlayer* player, const iCard* target) {
 	int count = 0;
 	std::string rank = target->rank();
@@ -294,7 +294,7 @@ double Ranker::repeat(iPlayer* player, const iCard* target) {
 
 Эта часть определена в `counter.h`, потому что необходимо выполнить * симуляцию удержания * в ситуации в более поздней реализации, поэтому мы не записываем информацию о руке игрока в плеере` iplayer.h`, а вместо этого Введите несколько частных свойств класса `Counter`:
 
-```
+```cpp
 template <int number>
 class Counter {
 private:
@@ -369,7 +369,7 @@ public:
 
 Индивид игрока реализован в `iplayer.h` и определяется следующим образом:
 
-```
+```cpp
 class iPlayer {
 private:
 	int _index; // our index
@@ -455,7 +455,7 @@ public:
 
 Класс данных определен в `data.h`, и его состав очень прост:
 
-```
+```cpp
 struct Data {
 	double rank; double possibility; iCard* card;
 	Data(iCard* card, double rank, double possibility);
@@ -469,7 +469,7 @@ typedef struct Data Data;
 
 Класс узла определяется следующим образом:
 
-```
+```cpp
 /* Tree (data structure) support */
 class Node {
 private:
@@ -516,7 +516,7 @@ public:
 
 Класс дерева определяется следующим образом:
 
-```
+```cpp
 /*
 	Tree support
 	bool exist(Node* target); // Find if specified node in tree
@@ -551,7 +551,7 @@ public:
 
 Среди них `Tree :: Parser` использует алгоритм` DFS` для реализации обходчика пути от корневого узла ко всем конечным узлам (описано ниже). Его использование заключается в следующем:
 
-```
+```cpp
 Tree::Parser parser = tree.leaves();
 while (parser.status()):{
 	std::stack<Node*> path = parser.yield();
@@ -600,7 +600,7 @@ while (parser.status()):{
 
 Поскольку программа должна реализовывать как `BFS`, так и` DFS`, а большая часть ее кода одинакова, мы сначала реализуем ту же часть базового класса: `Traverse`, который определяется следующим образом:
 
-```
+```cpp
 /* Traversing support */
 template <typename Contaniner>
 class Traverse {
@@ -645,7 +645,7 @@ public:
 
 Это шаблонный класс, который использует `Container` для указания контейнера данных (реализуйте` BFS` при реализации `DFS`,` Queue` при `Stack`). В некоторых методах интерфейс между `Stack` и` Queue` отличается, поэтому мы устанавливаем интерфейс `next`, который извлекает данные в чисто виртуальную функцию, наследуя и реализуя их в подклассе:
 
-```
+```cpp
 /*
 	Traversing the tree using the BFS algorithm
 	Traverse all nodes of the tree using the queue's first-in,
@@ -708,7 +708,7 @@ class DFSTraverse : public Traverse<std::stack<Node*>> {
 
 Таким образом, мы получаем следующую структуру узла предсказания - `thinker.h`:
 
-```
+```cpp
 // Node for prediction, using in task queue
 struct Prediction {
 	bool mode; // attack or defense
@@ -723,7 +723,7 @@ struct Prediction {
 
 Далее нам нужно использовать указанный выше узел прогнозирования для рекурсивной генерации дерева, соответствующего структуре `Data`, которая определена в классе` TreeMaker`:
 
-```
+```cpp
 class TreeMaker {
 private:
 	Node* root = nullptr; // root node
@@ -748,7 +748,7 @@ public:
 Как видите, класс хранит очередь задач (`tasks`), игрока-атакующего, игрока-защитника и корневой узел.
 Вот реализация связующего дерева:
 
-```
+```cpp
 /* Using BFS algorithm to generate pretree */
 Tree* TreeMaker::make(void) {
 	// Produce with tasks queue
@@ -836,7 +836,7 @@ Tree* TreeMaker::make(void) {
 
 В `TreeMaker::trashbin` все копии ситуации в вышеописанном процессе прогнозирования сохраняются и все они высвобождаются в деструкторе класса:
 
-```
+```cpp
 TreeMaker::~TreeMaker(void) {
 	// release all Counter's memory
 	for (auto& counter : this->trashbin)
@@ -849,7 +849,7 @@ TreeMaker::~TreeMaker(void) {
 
 В классе `TreeMaker` есть `complex`  преобразователь, который отвечает за преобразование результирующей информации `prediction` в узел `Node`, который реализован следующим образом:
 
-```
+```cpp
 Node* TreeMaker::complex(iCard*& card, iPlayer*& player) {
 	// This function use card to create Node in ***heap***
 	double rank, possibility;
@@ -877,7 +877,7 @@ Node* TreeMaker::complex(iCard*& card, iPlayer*& player) {
 
 Ниже приведено определение класса анализа:
 
-```
+```cpp
 class Thinker {
 private:
 	iPlayer* we;
@@ -912,7 +912,7 @@ public:
 
 Его реализация заключается в следующем:
 
-```
+```cpp
 /* 
 	Calculate the weight of the path and 
 	the sum of the probabilities;
@@ -953,7 +953,7 @@ double Thinker::ranksum(bool starting, std::stack<Node*>& opath) {
 
 В классе определены три наступательных и оборонительных интерфейса:
 
-```
+```cpp
 iCard* attack(void);
 iCard* attack(int);
 iCard* defend(iCard* action);
@@ -968,7 +968,7 @@ iCard* defend(iCard* action);
 
 Его интерфейс реализован следующим образом:
 
-```
+```cpp
 iCard* Thinker::attack(void) {
 	return this->byrank(this->we); 
 }
@@ -1011,7 +1011,7 @@ iCard* Thinker::attack(int) {
 
 Класс `iCard`, который мы реализуем внутренне, должен быть преобразован в класс` Card` и обратно, поэтому следующие статические функции определены в `translator.h`:
 
-```
+```cpp
 // translate card* to icard*
 static iCard* icard(CardManager* manager, const Card* card) {
 	if ((card == Dealer::GetNocard())
@@ -1035,7 +1035,7 @@ static iCard* icard(CardManager* manager, const Card* card) {
 
 Определение класса игрока выглядит следующим образом:
 
-```
+```cpp
 class Player : public PlayerAbstract {
 
 private:
@@ -1078,7 +1078,7 @@ public:
 Выполняя операцию (`TakeCards`,` GetHeadTrick`, `TakeOneCard`,` PutCard`), мы должны уведомить воображаемого врага противника, чтобы обновить соответствующее состояние, таким образом достигая взаимного предсказания с обеих сторон.
 Поэтому вам нужно сохранить объект класса `iPlayer* weinenemy` в классе. Когда бы мы ни выполняли связанные операции с изменениями ресурса, мы должны делать это одновременно:
 
-```
+```cpp
 // Take one card
 void Player::TakeOneCard(Card*& nc) {
 	iCard* target = icard(this->manager, nc);
@@ -1107,7 +1107,7 @@ void Player::TakeOneCard(Card*& nc) {
 
 Поскольку все компоненты инициализируются в памяти кучи в конструкторе класса, их необходимо освободить в деструкторе класса:
 
-```
+```cpp
 Player::~Player(void) {
 	// Release all created resources
 	delete this->analyser;
@@ -1121,7 +1121,7 @@ Player::~Player(void) {
 
 Кроме того, после отправки карты в колоде, если вы по-прежнему объявляете `INeedCard`, она будет продолжать выдавать карту в` Dealer::GetPas() `объекту, что приведет к внутренней ошибке. Нам нужно установить флаг (`Player::ending`) и объявить, что карта больше не нужна, когда мы обнаружим, что карта недоступна:
 
-```
+```cpp
 // Return if we need cards
 bool Player::INeedCard(void) {
 	// If there is no card for us - ending status
@@ -1152,7 +1152,7 @@ void Player::TakeOneCard(Card*& nc) {
 
 При инициализации игры, из-за вышеуказанных характеристик, нам нужно выполнить еще два шага, чтобы инициализировать `CardManager` и установить воображаемого врага:
 
-```
+```cpp
 Card* trump = Dealer::GetTrump();
 CardManager manager;
 std::cout << "Trump: " << *icard(&manager, trump) << std::endl;
