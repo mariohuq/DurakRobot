@@ -93,20 +93,20 @@ int main()
 			}
 			Dealer::ShowTable();
 			int kht = Dealer::GetCurrentHeadTrik();
-			// §á§â§à§Ó§Ö§â§Ú§ä?§Ó§ã?§á§à §á§Ñ§â§Ñ?
-			if (Dealer::CheckHeadTrick()) // §Ü§Ñ§â§ä?§à§ä§Ò§Ú§ä§í §Ó§Ö§â§ß?
+			// check all cards by pairs
+			if (Dealer::CheckHeadTrick()) //cards are beaten correctly
 			{
 				Card* plastDefCard = Dealer::GetLastDefendCard();
 				Card* plastCard = Dealer::GetLastCard();
 				if (plastDefCard != nullptr)
 				{
-					// §Ö§ã§Ý§Ú §á§à§ã§Ý§Ö§Õ? §Ü§Ñ§â§ä?§à§ä§Ò§à§ñ  "§á§Ñ? - §Ó§ä§à§â§à§Û §Ù§Ñ§Ò§Ú§â§Ñ§Ö§ä §Ü§Ñ§â§ä?§ã§Ö§Ò§Ö
+					// if the last card of beating off is "Pas" - player2 takes all cars
 					if (Dealer::RankIndex(plastDefCard) == PAS)
 					{
 						player2->TakeCards();
 						Dealer::ClearTable();
 					}
-					// §Ö§ã§Ý§Ú §á§à§ã§Ý§Ö§Õ?§ñ §Ü§Ñ§â§ä??§Ü§à§ä§à§â§à?§ç§à§Õ§Ú§Ý§Ú - §á§Ñ?§Ú§Ý?§ß§Ö?§Ü§Ñ§â§ä - §á§Ö§â§Ö§ç§à?§ç§à§Õ§Ñ, §à§ä§Ò§à?
+					// if the last card, that was played - PAS or NOCARD - change of direction of move, beat off
 					else if ((Dealer::RankIndex(plastCard) == PAS) ||
 						(Dealer::RankIndex(plastCard) == NOCARD) ||
 						(Dealer::GetCurrentHeadTrik() == 6)
@@ -149,8 +149,6 @@ int main()
 			else
 				p1win++;
 		}
-
-		// §Ö§ã§Ý§Ú §á§à§ã§Ý§Ö§Õ?§ñ §Ü§Ñ§ä§â?- §á§Ñ?- §Ó§ä§à§â§à§Û §Ù§Ñ§Ò§Ú§â§Ñ§Ö§ä
 
 		player1->ShowCards();
 		player2->ShowCards();
