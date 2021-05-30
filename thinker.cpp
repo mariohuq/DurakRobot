@@ -163,7 +163,7 @@ Node* TreeMaker::complex(iCard*& card, iPlayer*& player) {
 	double rank, possibility;
 	if (card != nullptr) {
 		rank = player->rank(card) * global::rank_factor;
-		possibility = player->posibility(card) * global::possibility_factor;
+		possibility = player->possibility(card) * global::possibility_factor;
 	} else {
 		rank = 0.0;
 		possibility = 0.0;

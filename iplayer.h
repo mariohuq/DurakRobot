@@ -9,7 +9,7 @@ class iPlayer {
 	bool _status; // attack or defend
 	std::string _name;
 
-	Rule* analyser;
+	Rule* analyzer;
 	Ranker* ranker;
 	Counter* counter;
 
@@ -27,21 +27,21 @@ public:
 	std::string name(void) const; // return name
 	void set_index(int);
 	void set_counter(Counter* counter); // reset counter for think
-	void set_analyser(Rule* analyser); // set analyser
+	void set_analyzer(Rule* analyzer); // set analyzer
 	void set_ranker(Ranker* ranker); // set ranker
 
 	void grab(); // grab all cards
-	void replenish(); // get some cards we dont know
+	void replenish(); // get some cards we don't know
 	void get(iCard*); // get one card
 	void hit(iCard*); // hit one card
 	void get(std::string&, std::string&); // get one card
 	void hit(std::string&, std::string&); // hit one card
 
 	std::vector<iCard*> analysis(); // analysis we could play
-	double posibility(const iCard* card); // return for one card's posibility
+	double posibility(iCard* card); // return for one card's posibility
 	double rank(const iCard* card); // return for one card's rank
 
-	void transform(); // takein/out our turn's control
+	void transform(); // take in/out our turn's control
 	void toggle(); // change our attack/defend mode
 };
 	

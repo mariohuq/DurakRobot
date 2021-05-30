@@ -21,12 +21,12 @@ std::vector<iCard*> iPlayer::analysis(void) {
 	// analysis for possible cards
 	std::vector<iCard*>& desk = this->desk();
 	if (this->status() == global::attack)
-		return this->analyser->attack(desk, total);
+		return this->analyzer->attack(desk, total);
 	else
-		return this->analyser->defend(desk, total);
+		return this->analyzer->defend(desk, total);
 }
 
-double iPlayer::posibility(const iCard* card) {
+double iPlayer::possibility(const iCard* card) {
 	
 	std::vector<iCard*>& hand = this->hand();
 	std::vector<iCard*>& unknown = this->unknown();
@@ -95,12 +95,12 @@ int iPlayer::index(void) const { return this->_index; }
 std::string iPlayer::name(void) const { return this->_name; }
 void iPlayer::set_index(int index) { this->_index = index; }
 void iPlayer::set_counter(Counter* counter) { this->counter = counter; }
-void iPlayer::set_analyser(Rule* analyser) { this->analyser = analyser; }
+void iPlayer::set_analyzer(Rule* analyzer) { this->analyzer = analyzer; }
 void iPlayer::set_ranker(Ranker* ranker) { this->ranker = ranker; }
 bool iPlayer::us(void) const { return this->_we; }
 iPlayer::iPlayer(bool we, bool turn, bool status, std::string name) :
 	_we(we), _turn(turn), _status(status), _name(name), _index(0),
-	analyser(nullptr), ranker(nullptr), counter(nullptr) {
+	analyzer(nullptr), ranker(nullptr), counter(nullptr) {
 	
 }
 
