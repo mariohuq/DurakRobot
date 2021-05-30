@@ -27,7 +27,7 @@ Counter<global::players>::Counter(
 
 Counter<global::players>::Counter(const Counter<global::players>& counter) {
 	this->_desk = counter._desk;
-	this->_unknown = counter._unknown;;
+	this->_unknown = counter._unknown;
 	this->players = counter.players;
 	this->count = counter.count;
 	this->inhand = counter.inhand;
