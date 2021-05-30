@@ -63,7 +63,6 @@ class Thinker;
 class Situation;
 class CardManager;
 
-template <int count>
 class Counter;
 
 static std::string clubs = global::suits[0];

@@ -12,7 +12,7 @@ private:
 
 	Rule* analyser;
 	Ranker* ranker;
-	Counter<global::players>* counter;
+	Counter* counter;
 
 public:
 	int total(void); // return total count of our cards
@@ -28,7 +28,7 @@ public:
 	int index(void) const; // return index
 	std::string name(void) const; // return name
 	void set_index(int);
-	void set_counter(Counter<global::players>* counter); // reset counter for think
+	void set_counter(Counter* counter); // reset counter for think
 	void set_analyser(Rule* analyser); // set analyser
 	void set_ranker(Ranker* ranker); // set ranker
 
