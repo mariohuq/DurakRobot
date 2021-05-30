@@ -1,18 +1,17 @@
 
 #include "card.h"
-#include "ranker.h"
-#include "counter.h"
 #include "iplayer.h"
+#include "ranker.h"
 
 // Scale the function value field to [1,2]
 double Ranker::zipvalue(double value) {
 	return atan(value) / (0.5 * M_PI) + 1; 
 }
 
-Ranker::Ranker(Counter* counter, const iCard* trump) :
-	_counter(counter), _trump(trump) {}
+Ranker::Ranker(const iCard* trump) :
+	_trump(trump) {}
 
-// Add weight to the trump card
+
 double Ranker::trump(const iCard* card) {
 	if (card->suit() == this->_trump->suit())
 		return global::trump_factor;
@@ -21,25 +20,20 @@ double Ranker::trump(const iCard* card) {
 
 // Calc absolute rank for card
 double Ranker::absolute(const iCard* card) {
-	std::string rank = card->rank();
-	double raw = global::iranks[rank];
+  const double raw = global::iranks[card->rank()];
 	return global::unconstrained_factor * raw;
 }
 
-// Calc for progress coefficent
-double Ranker::progress(void) {
-	double all = global::total;
-	double left = this->_counter->unknown().size();
-	double progress = all / left;
-	return this->zipvalue(progress);
+double Ranker::progress(size_t left) {
+  const double all = global::total;
+  const double progress = all / left;
+	return zipvalue(progress);
 }
 
-// Calc repeat rank for attack and defend
 double Ranker::repeat(iPlayer* player, const iCard* target) {
 	int count = 0;
 	std::string rank = target->rank();
-	std::vector<iCard*>& inhand = player->hand();
-	for (auto& card : inhand)
+  for (auto& card : player->hand())
 		if (card->rank() == rank)
 			count++;
 

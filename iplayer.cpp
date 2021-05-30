@@ -47,7 +47,7 @@ double iPlayer::posibility(const iCard* card) {
 	finder = std::find(unknown.begin(), unknown.end(), card);
 	if (finder == unknown.end()) return 0.;
 
-	// Otherwise, we need calculate posibility
+	// Otherwise, we need calculate possibility
 	// let :
 	//		unknown.size() = a
 	//		this.enemy.size() = b
@@ -69,19 +69,19 @@ double iPlayer::posibility(const iCard* card) {
 double iPlayer::rank(const iCard* card) {
 
 	double init = 1.0;
-	init *= ranker->absolute(card);
+	init *= Ranker::absolute(card);
 	init *= ranker->trump(card);
-	init *= ranker->progress();
+	init *= Ranker::progress(unknown().size());
 
 	// If it's enemy's player
 	if (!this->us()) return init;
 
 	// if it's our player
-	double repeat = ranker->repeat(this, card);
+  const double repeat = Ranker::repeat(this, card);
 	if (this->status() == global::attack)
-		init -= init * repeat;
+		init *= 1 - repeat;
 	else
-		init += init * repeat;
+		init *= 1 + repeat;
 	return init;
 }
 
