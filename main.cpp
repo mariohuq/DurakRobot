@@ -10,7 +10,7 @@ int main()
 {
 	CardManager manager;
 	int p1win = 0, p2win = 0, drawn = 0;
-	for (int count = 0; count < 10; count++)
+	for (int count = 0; count < 1; count++)
 	{
 		Dealer::ShuffleDec();
 
