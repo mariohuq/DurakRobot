@@ -6,11 +6,13 @@
 #include "player.h"
 #include "translator.h"
 
+void on_exit();
+
 int main()
 {
 	CardManager manager;
 	int p1win = 0, p2win = 0, drawn = 0;
-	for (int count = 0; count < 10; count++)
+	for (int count = 0; count < 1; count++)
 	{
 		Dealer::ShuffleDec();
 
@@ -124,6 +126,8 @@ int main()
 			else
 			{
 				std::cout << "error";
+				on_exit();
+				return 0;
 			}
 		}
 
@@ -156,5 +160,12 @@ int main()
 		std::cout << "\nKonstantin - " << p1win << " Grigory - " << p2win << " drawn " << drawn;
 	}
 
+	on_exit();
 	return 0;
+}
+
+void on_exit()
+{
+	delete Dealer::GetPas();
+	delete Dealer::GetNocard();
 }
