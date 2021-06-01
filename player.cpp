@@ -18,13 +18,12 @@ iPlayer* Player::getenemy(void) const { return this->enemy; }
 Player::Player(const char* name, CardManager* manager) {
 	// Initialization module
 	this->manager = manager;
-	this->trump = icard(this->manager, Dealer::GetTrump());
 	this->counter = new Counter(
-		*this->manager, this->trump);
+		*this->manager);
 
 	// Initialize the player and the imaginary enemy
-	this->we = new iPlayer(true, false, global::defend, name, this->trump);
-	this->enemy = new iPlayer(false, false, global::attack, "GoHan", this->trump);
+	this->we = new iPlayer(true, false, global::defend, name);
+	this->enemy = new iPlayer(false, false, global::attack, "GoHan");
 
 	this->we->set_counter(this->counter);
 	this->we->set_index(this->counter->join(this->we));

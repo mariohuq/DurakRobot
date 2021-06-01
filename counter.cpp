@@ -4,14 +4,14 @@
 #include "iplayer.h"
 #include "counter.h"
 
-void Counter::moveOut(std::vector<iCard*>& set, iCard*& target) {
+void Counter::moveOut(std::vector<iCard*>& set, iCard* target) {
 	const auto it = std::find(set.begin(), set.end(), target);
 	if (it == set.end()) return;
 	set.erase(it);
 }
 
 Counter::Counter(
-	CardManager& manager, iCard* trump) {
+	CardManager& manager) {
 	this->_desk.clear();
 	this->_unknown = manager.getall();
 	this->manager = &manager;
@@ -22,7 +22,7 @@ Counter::Counter(
 	}
 
 	// Move out trump
-	this->moveOut(this->_unknown, trump);
+	this->moveOut(this->_unknown, manager.trump());
 }
 
 Counter::Counter(const Counter& counter) {

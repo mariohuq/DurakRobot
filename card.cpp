@@ -95,3 +95,8 @@ void CardManager::set_trump(iCard* trump)
 {
 	iCard::_trump = trump;
 }
+
+iCard* CardManager::trump()
+{
+	return iCard::_trump;
+}

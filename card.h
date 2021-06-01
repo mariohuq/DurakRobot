@@ -47,4 +47,5 @@ public:
 	std::vector<iCard*> getall(void);
 	iCard* get(std::string&, std::string&);
     void set_trump(iCard* trump);
+	iCard* trump();
 };

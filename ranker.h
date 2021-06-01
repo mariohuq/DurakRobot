@@ -4,7 +4,7 @@
 
 namespace Ranker {
 	// Add weight to the trump card
-	double trump(const iCard* trump_card, const iCard* card);
+	double trump(const iCard* card);
 
 	// Scale the function value field to [1,2]
 	double zip_value(double);

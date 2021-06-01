@@ -9,7 +9,6 @@ class iPlayer {
 	bool _status; // attack or defend
 	std::string _name;
 
-	iCard* _trump;
 	Counter* counter;
 
 public:
@@ -18,7 +17,7 @@ public:
 	std::vector<iCard*>& hand(); // return ref for inhand's cards
 	std::vector<iCard*>& unknown(); // return ref for unknown cards
 
-	iPlayer(bool we, bool turn, bool status, std::string name, iCard* trump);
+	iPlayer(bool we, bool turn, bool status, std::string name);
 	bool us() const; // return if it's our player
 	bool turn() const; // return if it's our turn
 	bool status() const; // return status for player

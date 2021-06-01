@@ -37,7 +37,6 @@ class Player : public PlayerAbstract {
 	bool ending = false;
 
 protected:
-	iCard* trump = nullptr;
 	CardManager* manager = nullptr;
 	Counter* counter = nullptr;
 	iPlayer* enemy = nullptr;

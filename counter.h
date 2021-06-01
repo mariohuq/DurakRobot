@@ -12,11 +12,11 @@ class Counter {
 	std::array<std::vector<iCard*>, global::players> inhand; // cards for everyone
 
 public:
-	Counter(CardManager&, iCard*);
+	Counter(CardManager&);
 	Counter(const Counter& counter);
 
 	// Move out one card from a specified vector
-	static void moveOut(std::vector<iCard*>& set, iCard*& target);
+	static void moveOut(std::vector<iCard*>& set, iCard* target);
 
 	int join(iPlayer* player); // join a player
 
