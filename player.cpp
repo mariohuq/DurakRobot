@@ -9,6 +9,8 @@
 #include "player.h"
 #include "dealer.h"
 
+CardManager Player::manager{};
+
 void Player::setwe(iPlayer* enemy)
 {
     this->weinenemy = enemy;
@@ -71,7 +73,7 @@ void Player::YouTurn(bool status)
 // Take one card
 void Player::TakeOneCard(Card*& nc)
 {
-    iCard* target = manager->icard(nc);
+    iCard* target = manager.icard(nc);
 
     // While there is no card for us
     if (target == nullptr)
@@ -80,7 +82,7 @@ void Player::TakeOneCard(Card*& nc)
         return;
     }
 
-    manager->register_card(nc);
+    manager.register_card(nc);
     this->we->get(target);
 
     // Notify enemy that we get one card
@@ -133,7 +135,7 @@ void Player::TakeCards(void)
 
             // Get into our hands, here we just need to record
             // all status updating will in function call we.grab()
-            manager->register_card(target);
+            manager.register_card(target);
         }
     }
     // Updating status
@@ -162,7 +164,7 @@ void Player::PutCard(void)
         real = Dealer::GetPas();
     else
         // Otherwise, find real card in card mapping
-        real = manager->real_card(target);
+        real = manager.real_card(target);
     Dealer::Attack(real);
 
     // update in our record
@@ -196,14 +198,14 @@ void Player::GetHeadTrick(void)
         return;
     }
 
-    iCard* target = this->thinker->defend(manager->icard(last));
+    iCard* target = this->thinker->defend(manager.icard(last));
 
     // if we could not handle attack
     Card* real;
     if (target == nullptr)
         real = Dealer::GetPas();
     else
-        real = manager->real_card(target);
+        real = manager.real_card(target);
     Dealer::Defend(real);
 
     // update in our record
