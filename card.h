@@ -3,11 +3,14 @@
 #include "header.h"
 
 class iCard {
+	static iCard* _trump;
 	std::string _suit;
 	std::string _rank;
+	iCard(std::string, std::string);
 
 public:
-	iCard(std::string, std::string);
+	friend class CardManager;
+
 	std::string suit(void) const;
 	std::string rank(void) const;
 	static int compare(const iCard*, const iCard*);
