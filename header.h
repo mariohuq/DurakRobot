@@ -58,7 +58,6 @@ struct Data;
 class Node;
 class Tree;
 
-class Rule;
 class iCard;
 class iPlayer;
 class Thinker;

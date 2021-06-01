@@ -2,12 +2,14 @@
 #include "card.h"
 #include "rule.h"
 
-iCard* Rule::last(std::vector<iCard*>& desk) {
+// Return last card in desk
+iCard* last(std::vector<iCard*>& desk) {
 	if (desk.empty()) return nullptr;
 	return desk.back();
 }
 
-std::unordered_set<std::string> Rule::shown_ranks(std::vector<iCard*>& desk) {
+// Return list for shown card
+std::unordered_set<std::string> shown_ranks(std::vector<iCard*>& desk) {
 	std::unordered_set<std::string> shown;
 	for (auto& card : desk)
 		shown.insert(card->rank());
