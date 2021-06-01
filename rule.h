@@ -6,7 +6,7 @@ class Rule {
 	const iCard* trump;
 	bool istrump(const iCard*); // Return if it's trump card
 	static iCard* last(std::vector<iCard*>&); // Return last card in desk
-	static std::unordered_set<std::string> shown(std::vector<iCard*>&); // Return list for shown card
+	static std::unordered_set<std::string> shown_ranks(std::vector<iCard*>&); // Return list for shown card
 		
 public:
 	Rule(const iCard*);

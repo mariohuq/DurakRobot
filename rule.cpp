@@ -11,7 +11,7 @@ iCard* Rule::last(std::vector<iCard*>& desk) {
 	return desk.back();
 }
 
-std::unordered_set<std::string> Rule::shown(std::vector<iCard*>& desk) {
+std::unordered_set<std::string> Rule::shown_ranks(std::vector<iCard*>& desk) {
 	std::unordered_set<std::string> shown;
 	for (auto& card : desk)
 		shown.insert(card->rank());
@@ -31,7 +31,7 @@ std::vector<iCard*> Rule::attack(std::vector<iCard*>& desk, std::vector<iCard*>&
 
 	// Otherwise, you can only play cards that you have ever shown.
 	std::vector<iCard*> possible;
-	std::unordered_set<std::string> shown = this->shown(desk);
+	std::unordered_set<std::string> shown = this->shown_ranks(desk);
 	std::unordered_set<std::string>::iterator notexist = shown.end();
 
 	for (auto& card : inhand) {
