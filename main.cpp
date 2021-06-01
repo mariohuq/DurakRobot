@@ -159,7 +159,7 @@ int main()
 		player1->ShowCards();
 		player2->ShowCards();
 
-		std::cout << "\nKonstantin - " << p1win << " Grigory - " << p2win << " drawn " << drawn;
+		std::cout << "\nKonstantin - " << p1win << " Grigory - " << p2win << " drawn " << drawn << std::endl;
 	}
 
 	on_exit();
