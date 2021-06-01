@@ -9,8 +9,8 @@ class iPlayer {
 	bool _status; // attack or defend
 	std::string _name;
 
+	iCard* _trump;
 	Rule* analyzer;
-	Ranker* ranker;
 	Counter* counter;
 
 public:
@@ -19,7 +19,7 @@ public:
 	std::vector<iCard*>& hand(); // return ref for inhand's cards
 	std::vector<iCard*>& unknown(); // return ref for unknown cards
 
-	iPlayer(bool we, bool turn, bool status, std::string name);
+	iPlayer(bool we, bool turn, bool status, std::string name, iCard* trump);
 	bool us() const; // return if it's our player
 	bool turn() const; // return if it's our turn
 	bool status() const; // return status for player
@@ -28,7 +28,6 @@ public:
 	void set_index(int);
 	void set_counter(Counter* counter); // reset counter for think
 	void set_analyzer(Rule* analyzer); // set analyzer
-	void set_ranker(Ranker* ranker); // set ranker
 
 	void grab(); // grab all cards
 	void replenish(); // get some cards we don't know

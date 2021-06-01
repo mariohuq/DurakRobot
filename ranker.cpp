@@ -7,11 +7,8 @@ double Ranker::zip_value(double value) {
 	return atan(value) / (0.5 * M_PI) + 1; 
 }
 
-Ranker::Ranker(const iCard* trump) :
-	trump_(trump) {}
-
-double Ranker::trump(const iCard* card) const {
-	if (card->suit() == trump_->suit())
+double Ranker::trump(const iCard* trump_card, const iCard* card) {
+	if (card->suit() == trump_card->suit())
 		return global::trump_factor;
 	return 1.0;
 }

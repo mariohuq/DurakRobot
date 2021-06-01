@@ -70,7 +70,7 @@ double iPlayer::rank(iCard* card) {
 
 	double init = 1.0;
 	init *= Ranker::absolute(card);
-	init *= ranker->trump(card);
+	init *= Ranker::trump(this->_trump, card);
 	init *= Ranker::progress(unknown().size());
 
 	// If it's enemy's player
@@ -96,13 +96,16 @@ std::string iPlayer::name(void) const { return this->_name; }
 void iPlayer::set_index(int index) { this->_index = index; }
 void iPlayer::set_counter(Counter* counter) { this->counter = counter; }
 void iPlayer::set_analyzer(Rule* analyzer) { this->analyzer = analyzer; }
-void iPlayer::set_ranker(Ranker* ranker) { this->ranker = ranker; }
 bool iPlayer::us(void) const { return this->_we; }
-iPlayer::iPlayer(bool we, bool turn, bool status, std::string name) :
-	_we(we), _turn(turn), _status(status), _name(name), _index(0),
-	analyzer(nullptr), ranker(nullptr), counter(nullptr) {
-	
-}
+iPlayer::iPlayer(bool we, bool turn, bool status, std::string name, iCard* trump)
+    : _index(0)
+    , _we(we)
+, _turn(turn)
+, _status(status)
+, _name(name)
+, _trump(trump)
+, analyzer(nullptr)
+, counter(nullptr) { }
 
 void iPlayer::grab(void) { this->counter->grab(this); }
 void iPlayer::replenish(void) { this->counter->replenish(this, global::fullcard); }

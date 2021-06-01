@@ -59,7 +59,6 @@ class Node;
 class Tree;
 
 class Rule;
-class Ranker;
 class iCard;
 class iPlayer;
 class Thinker;

@@ -39,7 +39,6 @@ class Player : public PlayerAbstract {
 protected:
 	iCard* trump = nullptr;
 	Rule* analyzer = nullptr;
-	Ranker* ranker = nullptr;
 	CardManager* manager = nullptr;
 	Counter* counter = nullptr;
 	iPlayer* enemy = nullptr;

@@ -2,25 +2,20 @@
 
 #include "header.h"
 
-class Ranker {
-	const iCard* trump_;
-
-public:
-    explicit Ranker(const iCard*);
-
+namespace Ranker {
 	// Add weight to the trump card
-	double trump(const iCard* card) const;
+	double trump(const iCard* trump_card, const iCard* card);
 
 	// Scale the function value field to [1,2]
-	static double zip_value(double);
+	double zip_value(double);
 
 	// Calc absolute rank for card
-	static double absolute(const iCard* card);
+	double absolute(const iCard* card);
 
 	// Calc for progress coefficient
-  // left - number of cards unknown
-	static double progress(size_t left);
+	// left - number of cards unknown
+	double progress(size_t left);
 
 	// Calc repeat rank for attack and defend
-	static double repeat(iPlayer*, const iCard*);
+	double repeat(iPlayer*, const iCard*);
 };
