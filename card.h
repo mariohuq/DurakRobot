@@ -21,6 +21,7 @@ public:
 	bool operator<=(const iCard*&);
 	bool operator==(const iCard*&);
 	friend std::ostream& operator<<(std::ostream&, const iCard&);
+	bool is_trump() const; // Return if it's trump card
 };
 
 // Specialized hash support for pair<string, string>

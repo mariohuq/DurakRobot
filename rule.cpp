@@ -2,10 +2,6 @@
 #include "card.h"
 #include "rule.h"
 
-bool Rule::istrump(const iCard* card) {
-	return card->suit() == this->trump->suit();
-}
-
 iCard* Rule::last(std::vector<iCard*>& desk) {
 	if (desk.empty()) return nullptr;
 	return desk.back();
@@ -18,8 +14,6 @@ std::unordered_set<std::string> Rule::shown_ranks(std::vector<iCard*>& desk) {
 	return shown;
 }
 
-Rule::Rule(const iCard* trump) : trump(trump) {}
-
 std::vector<iCard*> Rule::attack(std::vector<iCard*>& desk, std::vector<iCard*>& inhand) {
 	
 	// If inhand is empty
@@ -31,7 +25,7 @@ std::vector<iCard*> Rule::attack(std::vector<iCard*>& desk, std::vector<iCard*>&
 
 	// Otherwise, you can only play cards that you have ever shown.
 	std::vector<iCard*> possible;
-	std::unordered_set<std::string> shown = this->shown_ranks(desk);
+	std::unordered_set<std::string> shown = shown_ranks(desk);
 
 	for (auto& card : inhand) {
 	
@@ -51,11 +45,10 @@ std::vector<iCard*> Rule::defend(std::vector<iCard*>& desk, std::vector<iCard*>&
 
 	// In defend module, you can play card with bigger or trump card
 	std::vector<iCard*> possible;
-	const iCard* last = this->last(desk);
+	const iCard* last_card = last(desk);
 
-	std::string trump_suit = trump->suit();
-	std::string last_suit = last->suit();
-	bool defend_trump = (last_suit == trump_suit);
+	std::string last_suit = last_card->suit();
+	bool defend_trump = last_card->is_trump();
 
 	for (auto& card : inhand) {
 
@@ -66,10 +59,10 @@ std::vector<iCard*> Rule::defend(std::vector<iCard*>& desk, std::vector<iCard*>&
 		if (defend_trump == true) {
 
 			// If it is general card
-			if (card_suit != trump_suit)
+			if (!card->is_trump())
 				continue;
 
-			if (card->operator>(last))
+			if (card->operator>(last_card))
 				possible.push_back(card);
 
 			continue;
@@ -77,23 +70,18 @@ std::vector<iCard*> Rule::defend(std::vector<iCard*>& desk, std::vector<iCard*>&
 
 		// Otherwise, if the current card is a trump card, 
 		// we can defend successfully;
-		if (card_suit == trump_suit) {
+		if (card->is_trump()) {
 			possible.push_back(card);
 			continue;
 		}
-
 		// When both cards are not ace, 
 		// check if the two cards are the same suit;
 		if (card_suit == last_suit) {
-
 			// Defensive success when the same suit 
 			// and the current card is larger
-			if (card->operator>(last))
+			if (card->operator>(last_card))
 				possible.push_back(card);
-
 		}
-
 	}
-
 	return possible;
 }

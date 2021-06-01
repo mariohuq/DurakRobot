@@ -21,18 +21,15 @@ Player::Player(const char* name, CardManager* manager) {
 	this->trump = icard(this->manager, Dealer::GetTrump());
 	this->counter = new Counter(
 		*this->manager, this->trump);
-	this->analyzer = new Rule(this->trump);
 
 	// Initialize the player and the imaginary enemy
 	this->we = new iPlayer(true, false, global::defend, name, this->trump);
 	this->enemy = new iPlayer(false, false, global::attack, "GoHan", this->trump);
 
 	this->we->set_counter(this->counter);
-	this->we->set_analyzer(this->analyzer);
 	this->we->set_index(this->counter->join(this->we));
 
 	this->enemy->set_counter(this->counter);
-	this->enemy->set_analyzer(this->analyzer);
 	this->enemy->set_index(this->counter->join(this->enemy));
 
 	// Initialization analyzer
@@ -45,7 +42,6 @@ Player::Player(const char* name, CardManager* manager) {
 
 Player::~Player(void) {
 	// Release all created resources
-	delete this->analyzer;
 	delete this->counter;
 	delete this->we;
 	delete this->enemy;

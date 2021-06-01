@@ -10,7 +10,6 @@ class iPlayer {
 	std::string _name;
 
 	iCard* _trump;
-	Rule* analyzer;
 	Counter* counter;
 
 public:
@@ -27,7 +26,6 @@ public:
 	std::string name(void) const; // return name
 	void set_index(int);
 	void set_counter(Counter* counter); // reset counter for think
-	void set_analyzer(Rule* analyzer); // set analyzer
 
 	void grab(); // grab all cards
 	void replenish(); // get some cards we don't know

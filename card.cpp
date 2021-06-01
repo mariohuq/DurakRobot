@@ -1,6 +1,8 @@
 
 #include "card.h"
 
+#include <cassert>
+
 iCard* iCard::_trump = nullptr;
 
 int iCard::compare(const iCard* first, const iCard* second) {
@@ -43,6 +45,12 @@ bool iCard::operator==(const iCard*& card) {
 	int diff = this->compare(this, card);
 	if (diff == 0) return true;
 	return false;
+}
+
+bool iCard::is_trump() const
+{
+	assert(_trump != nullptr);
+	return suit() == _trump->suit();
 }
 
 std::ostream& operator<<(std::ostream& out, const iCard& card) {
