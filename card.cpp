@@ -117,3 +117,13 @@ iCard* CardManager::icard(const Card* card)
 	iCard* target = this->get(suit, rank);
 	return target;
 }
+
+void CardManager::register_card(Card* card)
+{
+	cardmap[icard(card)] = card;
+}
+
+Card* CardManager::real_card(iCard* card) const
+{
+	return cardmap.at(card);
+}

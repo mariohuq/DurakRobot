@@ -65,7 +65,7 @@ void Player::TakeOneCard(Card*& nc) {
 		return;
 	}
 
-	this->cardmap[target] = nc;
+	manager->register_card(nc);
 	this->we->get(target);
 
 	// Notify enemy that we get one card
@@ -112,8 +112,7 @@ void Player::TakeCards(void){
 
 			// Get into our hands, here we just need to record
 			// all status updating will in function call we.grab()
-			iCard* us = manager->icard(target);
-			this->cardmap[us] = target;
+			manager->register_card(target);
 		}
 	}
 	// Updating status
@@ -141,7 +140,7 @@ void Player::PutCard(void) {
 		real = Dealer::GetPas();
 	else
 		// Otherwise, find real card in card mapping
-		real = this->cardmap[target];
+		real = manager->real_card(target);
 	Dealer::Attack(real);
 
 	// update in our record
@@ -161,7 +160,6 @@ void Player::PutCard(void) {
 
 // Defend one card
 void Player::GetHeadTrick(void) {
-	iCard* target; Card* real;
 	std::cout << this->we->name() << " - Analysis: " << std::endl;
 
 	Card* last = Dealer::GetLastCard();
@@ -173,13 +171,14 @@ void Player::GetHeadTrick(void) {
 		return;
 	}
 
-	target = this->thinker->defend(manager->icard(last));
+	iCard* target = this->thinker->defend(manager->icard(last));
 
 	// if we could not handle attack
+	Card* real;
 	if (target == nullptr)
 		real = Dealer::GetPas();
 	else
-		real = this->cardmap[target];
+		real = manager->real_card(target);
 	Dealer::Defend(real);
 
 	// update in our record

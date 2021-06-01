@@ -18,22 +18,9 @@ public:
 	virtual int GetCardNum() = 0;
 };
 
-// Support for iCard*'s hash
-namespace std {
-	template<>
-	class hash<iCard*> {
-	public:
-		std::size_t operator()(const iCard* ptr) const {
-			size_t sptr = (size_t)ptr;
-			return sptr & (0X7FFFFFFF);
-		}
-	};
-}
-
 class Player : public PlayerAbstract {
 	// Mapping table between external card and internal card
 	iPlayer* weinenemy;
-	std::unordered_map<iCard*, Card*> cardmap;
 	bool ending = false;
 
 protected:
