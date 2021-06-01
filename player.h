@@ -7,7 +7,7 @@ struct Card;
 class PlayerAbstract
 {
 public:
-	virtual ~PlayerAbstract() {};
+	virtual ~PlayerAbstract() {}
 	virtual void YouTurn(bool) = 0;
 	virtual void PutCard() = 0;
 	virtual void TakeCards() = 0;
@@ -24,7 +24,8 @@ class Player : public PlayerAbstract {
 	bool ending = false;
 
 protected:
-	CardManager* manager = nullptr;
+	static CardManager manager;
+
 	Counter* counter = nullptr;
 	iPlayer* enemy = nullptr;
 	Thinker* thinker = nullptr;
@@ -32,7 +33,7 @@ protected:
 	iPlayer* we;
 	
 public:
-	Player(const char* name, CardManager* manager);
+	Player(const char* name);
 	~Player(void);
 	void YouTurn(bool);
 	void PutCard(void);

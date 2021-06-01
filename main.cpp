@@ -9,21 +9,18 @@ void on_exit();
 
 int main()
 {
-	CardManager manager;
 	int p1win = 0, p2win = 0, drawn = 0;
 	for (int count = 0; count < 1; count++)
 	{
 		Dealer::ShuffleDec();
 
 		{
-			iCard* trump = manager.icard(Dealer::GetTrump());
-			manager.set_trump(trump);
-			std::cout << "Trump: " << *trump << std::endl;
+			std::cout << "Trump: " << Dealer::SuitName(Dealer::GetTrump()) << std::endl;
 		}
 
 		Card* temp;
-		Player p1("Konstantin", &manager);
-		Player p2("Grigory", &manager);
+		Player p1("Konstantin");
+		Player p2("Grigory");
 
 		{
 			p1.setwe(p2.getenemy()); 
