@@ -4,6 +4,7 @@
 
 class iCard {
 	static iCard* _trump;
+
 	std::string _suit;
 	std::string _rank;
 	iCard(std::string, std::string);
@@ -44,4 +45,5 @@ public:
 	~CardManager(void);
 	std::vector<iCard*> getall(void);
 	iCard* get(std::string&, std::string&);
+    void set_trump(iCard* trump);
 };

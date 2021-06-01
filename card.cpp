@@ -1,6 +1,8 @@
 
 #include "card.h"
 
+iCard* iCard::_trump = nullptr;
+
 int iCard::compare(const iCard* first, const iCard* second) {
 	return (global::iranks[first->_rank] - global::iranks[second->_rank]);
 }
@@ -79,4 +81,9 @@ iCard* CardManager::get(std::string& suit, std::string& rank) {
 		return this->library[key];
 
 	return nullptr;
+}
+
+void CardManager::set_trump(iCard* trump)
+{
+	iCard::_trump = trump;
 }

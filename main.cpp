@@ -16,8 +16,11 @@ int main()
 	{
 		Dealer::ShuffleDec();
 
-		Card* trump = Dealer::GetTrump();
-		std::cout << "Trump: " << *icard(&manager, trump) << std::endl;
+		{
+			iCard* trump = icard(&manager, Dealer::GetTrump());
+			manager.set_trump(trump);
+			std::cout << "Trump: " << *trump << std::endl;
+		}
 
 		Card* temp;
 		Player p1("Konstantin", &manager);
