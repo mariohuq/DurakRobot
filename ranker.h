@@ -6,7 +6,7 @@ class Ranker {
 	const iCard* trump_;
 
 public:
-  explicit Ranker(const iCard*);
+    explicit Ranker(const iCard*);
 
 	// Add weight to the trump card
 	double trump(const iCard* card) const;

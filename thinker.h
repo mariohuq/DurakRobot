@@ -3,12 +3,10 @@
 #include "header.h"
 
 class Thinker {
-private:
 	iPlayer* we;
 	iPlayer* enemy;
 	Counter* situation;
 
-private:
 	Tree* maketree(bool status, iCard* card);
 	static double ranksum(bool starting, std::stack<Node*> path);
 	static iCard* byrank(iPlayer*& player);
@@ -17,8 +15,7 @@ private:
 public:
 	Thinker(iPlayer* we, iPlayer* enemy,
 		Counter* situation);
-
-public:
+	
 	iCard* attack(void);
 	iCard* attack(int);
 	iCard* defend(iCard* action);
@@ -34,12 +31,10 @@ struct Prediction {
 };
 
 class TreeMaker {
-private:
 	Node* root = nullptr; // root node
 	int maxlayer = global::depth;
 	iPlayer* attacker; iPlayer* defender;
 
-private:
 	std::queue<Prediction*> tasks; // tasks queue
 	static Node* complex(iCard*& card, iPlayer*& player);
 	std::vector<Counter*> trashbin;
@@ -49,6 +44,5 @@ public:
 		iPlayer* defender, Counter* situation);
 	~TreeMaker(void);
 
-public:
 	Tree* make(void); // remember to delete tree after use!
 };

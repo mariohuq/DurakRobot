@@ -3,7 +3,6 @@
 #include "header.h"
 
 class Rule {
-private:
 	const iCard* trump;
 	bool istrump(const iCard*); // Return if it's trump card
 	static iCard* last(std::vector<iCard*>&); // Return last card in desk

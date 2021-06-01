@@ -17,8 +17,6 @@ private:
 	friend class Dealer;
 
 	Card(int suit = -1, int rank = -1);
-public:
-
 };
 
 

@@ -6,9 +6,6 @@ struct Card;
 
 class PlayerAbstract
 {
-protected:
-
-
 public:
 	virtual ~PlayerAbstract() {};
 	virtual void YouTurn(bool) = 0;
@@ -34,8 +31,6 @@ namespace std {
 }
 
 class Player : public PlayerAbstract {
-
-private:
 	// Mapping table between external card and internal card
 	iPlayer* weinenemy;
 	std::unordered_map<iCard*, Card*> cardmap;
@@ -64,7 +59,6 @@ public:
 	bool INeedCard(void);
 	int GetCardNum(void);
 
-public:
 	void setwe(iPlayer* enemy); // Get our player's address
 	iPlayer* getenemy(void) const; // Set the address of the imaginary enemy
 };

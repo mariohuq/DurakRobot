@@ -3,7 +3,6 @@
 #include "header.h"
 
 class iCard {
-private:
 	std::string _suit;
 	std::string _rank;
 
@@ -34,7 +33,6 @@ namespace std {
 }
 
 class CardManager {
-private:
 	std::vector<iCard*> all;
 	std::unordered_map<std::pair<std::string, std::string>, iCard*> library;
 
