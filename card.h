@@ -12,11 +12,11 @@ public:
 	std::string suit(void) const;
 	std::string rank(void) const;
 	static int compare(const iCard*, const iCard*);
-	bool operator>(const iCard*&) const ;
-	bool operator<(const iCard*&) const;
-	bool operator>=(const iCard*&) const;
-	bool operator<=(const iCard*&) const;
-	bool operator==(const iCard*&) const;
+	bool operator>(const iCard*&);
+	bool operator<(const iCard*&);
+	bool operator>=(const iCard*&);
+	bool operator<=(const iCard*&);
+	bool operator==(const iCard*&);
 	friend std::ostream& operator<<(std::ostream&, const iCard&);
 };
 
@@ -34,12 +34,13 @@ namespace std {
 }
 
 class CardManager {
-	std::vector<const iCard*> all;
+private:
+	std::vector<iCard*> all;
 	std::unordered_map<std::pair<std::string, std::string>, iCard*> library;
 
 public:
 	CardManager(void);
 	~CardManager(void);
-	std::vector<const iCard*> getall(void);
-	const iCard* get(std::string&, std::string&);
+	std::vector<iCard*> getall(void);
+	iCard* get(std::string&, std::string&);
 };

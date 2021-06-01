@@ -9,9 +9,9 @@ private:
 	Counter* situation;
 
 private:
-	Tree* maketree(bool status, const iCard* card);
+	Tree* maketree(bool status, iCard* card);
 	static double ranksum(bool starting, std::stack<Node*>& path);
-	static const iCard* byrank(iPlayer*& player);
+	static iCard* byrank(iPlayer*& player);
 	static void showpath(std::stack<Node*> path, double rank);
 
 public:
@@ -19,16 +19,16 @@ public:
 		Counter* situation);
 
 public:
-	const iCard* attack(void);
-	const iCard* attack(int);
-	const iCard* defend(const iCard* action);
+	iCard* attack(void);
+	iCard* attack(int);
+	iCard* defend(iCard* action);
 };
 
 // Node for prediction, using in task queue
 struct Prediction {
 	bool mode; // attack or defense
 	int layer; // current prediction's layer
-	const iCard* card; // operate card
+	iCard* card; // operate card
 	Node* father; // father node
 	Counter* situation; // layer
 };
@@ -41,11 +41,11 @@ private:
 
 private:
 	std::queue<Prediction*> tasks; // tasks queue
-	static Node* complex(const iCard*& card, iPlayer*& player);
+	static Node* complex(iCard*& card, iPlayer*& player);
 	std::vector<Counter*> trashbin;
 
 public:
-	TreeMaker(bool mode, const iCard* rootcard, iPlayer* attacker, 
+	TreeMaker(bool mode, iCard* rootcard, iPlayer* attacker, 
 		iPlayer* defender, Counter* situation);
 	~TreeMaker(void);
 

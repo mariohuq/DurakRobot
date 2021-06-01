@@ -17,27 +17,27 @@ std::string iCard::suit(void) const {
 	return this->_suit;
 }
 
-bool iCard::operator>(const iCard*& card) const {
+bool iCard::operator>(const iCard*& card) {
 	int diff = this->compare(this, card);
 	if (diff > 0) return true;
 	return false;
 }
-bool iCard::operator<(const iCard*& card) const {
+bool iCard::operator<(const iCard*& card) {
 	int diff = this->compare(this, card);
 	if (diff < 0) return true;
 	return false;
 }
-bool iCard::operator>=(const iCard*& card) const {
+bool iCard::operator>=(const iCard*& card) {
 	int diff = this->compare(this, card);
 	if (diff >= 0) return true;
 	return false;
 }
-bool iCard::operator<=(const iCard*& card) const {
+bool iCard::operator<=(const iCard*& card) {
 	int diff = this->compare(this, card);
 	if (diff <= 0) return true;
 	return false;
 }
-bool iCard::operator==(const iCard*& card) const {
+bool iCard::operator==(const iCard*& card) {
 	int diff = this->compare(this, card);
 	if (diff == 0) return true;
 	return false;
@@ -66,12 +66,12 @@ CardManager::~CardManager(void) {
 }
 
 // Get copy for all cards
-std::vector<const iCard*> CardManager::getall(void) {
+std::vector<iCard*> CardManager::getall(void) {
 	return this->all;
 }
 
 // Get the memory reference of the specified card
-const iCard* CardManager::get(std::string& suit, std::string& rank) {
+iCard* CardManager::get(std::string& suit, std::string& rank) {
 	auto key = std::make_pair(suit, rank);
 
 	// If found card

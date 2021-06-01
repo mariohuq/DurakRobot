@@ -38,11 +38,11 @@ class Player : public PlayerAbstract {
 private:
 	// Mapping table between external card and internal card
 	iPlayer* weinenemy;
-	std::unordered_map<const iCard*, Card*> cardmap;
+	std::unordered_map<iCard*, Card*> cardmap;
 	bool ending = false;
 
 protected:
-	const iCard* trump = nullptr;
+	iCard* trump = nullptr;
 	Rule* analyser = nullptr;
 	Ranker* ranker = nullptr;
 	CardManager* manager = nullptr;

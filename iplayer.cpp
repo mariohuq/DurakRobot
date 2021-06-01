@@ -5,22 +5,21 @@
 #include "iplayer.h"
 #include "counter.h"
 
-std::vector<const iCard*> iPlayer::analysis(void) {
-	std::vector<const iCard*> total;
+std::vector<iCard*> iPlayer::analysis(void) {
+	std::vector<iCard*> total;
 	
 	// The cards on our hands are known
-	if (this->us())
-		total = this->hand();
+	if (this->us()) total = this->hand();
 	// For enemy need calculate
 	else {
-		std::vector<const iCard*>& hand = this->hand();
-		std::vector<const iCard*>& unknown = this->unknown();
+		std::vector<iCard*>& hand = this->hand();
+		std::vector<iCard*>& unknown = this->unknown();
 		total.insert(total.end(), hand.begin(), hand.end());
 		total.insert(total.end(), unknown.begin(), unknown.end());
 	}
 	
 	// analysis for possible cards
-	std::vector<const iCard*>& desk = this->desk();
+	std::vector<iCard*>& desk = this->desk();
 	if (this->status() == global::attack)
 		return this->analyser->attack(desk, total);
 	else
@@ -29,9 +28,9 @@ std::vector<const iCard*> iPlayer::analysis(void) {
 
 double iPlayer::posibility(const iCard* card) {
 	
-	std::vector<const iCard*>& hand = this->hand();
-	std::vector<const iCard*>& unknown = this->unknown();
-	std::vector<const iCard*>::iterator finder;
+	std::vector<iCard*>& hand = this->hand();
+	std::vector<iCard*>& unknown = this->unknown();
+	std::vector<iCard*>::iterator finder;
 
 	// For us if card in hand - 1, otherwise - 0
 	if (this->us()) {
@@ -86,31 +85,31 @@ double iPlayer::rank(const iCard* card) {
 	return init;
 }
 
-int iPlayer::total() { return this->counter->left(this); }
-std::vector<const iCard*>& iPlayer::desk() {return this->counter->desk();}
-std::vector<const iCard*>& iPlayer::hand() { return this->counter->hand(this); }
-std::vector<const iCard*>& iPlayer::unknown() { return this->counter->unknown(); }
-bool iPlayer::turn() const { return this->_turn; }
-bool iPlayer::status() const { return this->_status; }
-int iPlayer::index() const { return this->_index; }
-std::string iPlayer::name() const { return this->_name; }
+int iPlayer::total(void) { return this->counter->left(this); }
+std::vector<iCard*>& iPlayer::desk(void) {return this->counter->desk();}
+std::vector<iCard*>& iPlayer::hand(void) { return this->counter->hand(this); }
+std::vector<iCard*>& iPlayer::unknown(void) { return this->counter->unknown(); }
+bool iPlayer::turn(void) const { return this->_turn; }
+bool iPlayer::status(void) const { return this->_status; }
+int iPlayer::index(void) const { return this->_index; }
+std::string iPlayer::name(void) const { return this->_name; }
 void iPlayer::set_index(int index) { this->_index = index; }
 void iPlayer::set_counter(Counter* counter) { this->counter = counter; }
 void iPlayer::set_analyser(Rule* analyser) { this->analyser = analyser; }
 void iPlayer::set_ranker(Ranker* ranker) { this->ranker = ranker; }
-bool iPlayer::us() const { return this->_we; }
+bool iPlayer::us(void) const { return this->_we; }
 iPlayer::iPlayer(bool we, bool turn, bool status, std::string name) :
 	_we(we), _turn(turn), _status(status), _name(name), _index(0),
 	analyser(nullptr), ranker(nullptr), counter(nullptr) {
 	
 }
 
-void iPlayer::grab() { this->counter->grab(this); }
-void iPlayer::replenish() { this->counter->replenish(this, global::fullcard); }
-void iPlayer::get(const iCard* card) { this->counter->get(this, card); }
-void iPlayer::hit(const iCard* card) { this->counter->hit(this, card); }
+void iPlayer::grab(void) { this->counter->grab(this); }
+void iPlayer::replenish(void) { this->counter->replenish(this, global::fullcard); }
+void iPlayer::get(iCard* card) { this->counter->get(this, card); }
+void iPlayer::hit(iCard* card) { this->counter->hit(this, card); }
 void iPlayer::get(std::string& suit, std::string& rank) { this->counter->get(this, suit, rank); }
 void iPlayer::hit(std::string& suit, std::string& rank) { this->counter->hit(this, suit, rank); }
 
-void iPlayer::transform() { this->_turn = !this->_turn; }
-void iPlayer::toggle() { this->_status = !this->_status; }
+void iPlayer::transform(void) { this->_turn = !this->_turn; }
+void iPlayer::toggle(void) { this->_status = !this->_status; }

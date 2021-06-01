@@ -67,7 +67,7 @@ void Player::YouTurn(bool status) {
 
 // Take one card
 void Player::TakeOneCard(Card*& nc) {
-	const iCard* target = icard(this->manager, nc);
+	iCard* target = icard(this->manager, nc);
 
 	// While there is no card for us
 	if (target == nullptr) {
@@ -122,7 +122,7 @@ void Player::TakeCards(void){
 
 			// Get into our hands, here we just need to record
 			// all status updating will in function call we.grab()
-			const iCard* us = icard(this->manager, target);
+			iCard* us = icard(this->manager, target);
 			this->cardmap[us] = target;
 
 		}
@@ -137,8 +137,7 @@ void Player::TakeCards(void){
 
 // Attack for one card
 void Player::PutCard(void) {
-	const iCard* target;
-  Card* real;
+	iCard* target; Card* real;
 
 	std::cout << this->we->name() << " - Analysis: " << std::endl;
 
@@ -174,8 +173,7 @@ void Player::PutCard(void) {
 
 // Defend one card
 void Player::GetHeadTrick(void) {
-	const iCard* target;
-  Card* real;
+	iCard* target; Card* real;
 	std::cout << this->we->name() << " - Analysis: " << std::endl;
 
 	Card* last = Dealer::GetLastCard();

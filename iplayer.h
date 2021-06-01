@@ -15,9 +15,9 @@ class iPlayer {
 
 public:
 	int total(); // return total count of our cards
-	std::vector<const iCard*>& desk(); // return ref for desk cards
-	std::vector<const iCard*>& hand(); // return ref for inhand's cards
-	std::vector<const iCard*>& unknown(); // return ref for unknown cards
+	std::vector<iCard*>& desk(); // return ref for desk cards
+	std::vector<iCard*>& hand(); // return ref for inhand's cards
+	std::vector<iCard*>& unknown(); // return ref for unknown cards
 
 	iPlayer(bool we, bool turn, bool status, std::string name);
 	bool us() const; // return if it's our player
@@ -32,12 +32,12 @@ public:
 
 	void grab(); // grab all cards
 	void replenish(); // get some cards we dont know
-	void get(const iCard*); // get one card
-	void hit(const iCard*); // hit one card
+	void get(iCard*); // get one card
+	void hit(iCard*); // hit one card
 	void get(std::string&, std::string&); // get one card
 	void hit(std::string&, std::string&); // hit one card
 
-	std::vector<const iCard*> analysis(); // analysis we could play
+	std::vector<iCard*> analysis(); // analysis we could play
 	double posibility(const iCard* card); // return for one card's posibility
 	double rank(const iCard* card); // return for one card's rank
 
