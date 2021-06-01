@@ -21,7 +21,7 @@ Thinker::Thinker(iPlayer* we, iPlayer* enemy,
 	the enemy's record as a positive number. 
 	The larger the calculated result value, the better.
 */
-double Thinker::ranksum(bool starting, std::stack<Node*>& path) {
+double Thinker::ranksum(bool starting, std::stack<Node*> path) {
 	// make a copy for path
 	double sum = 0; bool status = starting;
 

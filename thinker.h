@@ -10,7 +10,7 @@ private:
 
 private:
 	Tree* maketree(bool status, iCard* card);
-	static double ranksum(bool starting, std::stack<Node*>& path);
+	static double ranksum(bool starting, std::stack<Node*> path);
 	static iCard* byrank(iPlayer*& player);
 	static void showpath(std::stack<Node*> path, double rank);
 
