@@ -100,3 +100,20 @@ iCard* CardManager::trump()
 {
 	return iCard::_trump;
 }
+
+iCard* CardManager::icard(const Card* card)
+{
+	if ((card == Dealer::GetNocard())
+		||
+		(card == Dealer::GetPas())
+		||
+		(card == nullptr)
+		)
+	{
+		return nullptr;
+	}
+	std::string suit = Dealer::SuitName(card);
+	std::string rank = Dealer::RankName(card);
+	iCard* target = this->get(suit, rank);
+	return target;
+}

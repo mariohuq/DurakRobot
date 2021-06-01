@@ -48,4 +48,6 @@ public:
 	iCard* get(std::string&, std::string&);
     void set_trump(iCard* trump);
 	iCard* trump();
+	// translate card* to icard*
+    iCard* icard(const Card* card);
 };

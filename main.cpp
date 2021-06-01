@@ -4,7 +4,6 @@
 #include "card.h"
 #include "dealer.h"
 #include "player.h"
-#include "translator.h"
 
 void on_exit();
 
@@ -17,7 +16,7 @@ int main()
 		Dealer::ShuffleDec();
 
 		{
-			iCard* trump = icard(&manager, Dealer::GetTrump());
+			iCard* trump = manager.icard(Dealer::GetTrump());
 			manager.set_trump(trump);
 			std::cout << "Trump: " << *trump << std::endl;
 		}

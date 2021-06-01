@@ -77,9 +77,6 @@
     <ClInclude Include="thinker.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="translator.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="tree.h">
       <Filter>Header Files</Filter>
     </ClInclude>

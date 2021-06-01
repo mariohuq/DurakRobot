@@ -124,7 +124,6 @@
     <ClInclude Include="ranker.h" />
     <ClInclude Include="rule.h" />
     <ClInclude Include="thinker.h" />
-    <ClInclude Include="translator.h" />
     <ClInclude Include="tree.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

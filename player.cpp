@@ -7,7 +7,6 @@
 #include "thinker.h"
 #include "iplayer.h"
 #include "counter.h"
-#include "translator.h"
 
 #include "player.h"
 #include "dealer.h"
@@ -58,7 +57,7 @@ void Player::YouTurn(bool status) {
 
 // Take one card
 void Player::TakeOneCard(Card*& nc) {
-	iCard* target = icard(this->manager, nc);
+	iCard* target = manager->icard(nc);
 
 	// While there is no card for us
 	if (target == nullptr) {
@@ -113,12 +112,10 @@ void Player::TakeCards(void){
 
 			// Get into our hands, here we just need to record
 			// all status updating will in function call we.grab()
-			iCard* us = icard(this->manager, target);
+			iCard* us = manager->icard(target);
 			this->cardmap[us] = target;
-
 		}
 	}
-
 	// Updating status
 	this->we->grab();
 
@@ -176,7 +173,7 @@ void Player::GetHeadTrick(void) {
 		return;
 	}
 
-	target = this->thinker->defend(icard(this->manager, last));
+	target = this->thinker->defend(manager->icard(last));
 
 	// if we could not handle attack
 	if (target == nullptr)
