@@ -7,15 +7,15 @@ bool Rule::istrump(const iCard* card) {
 }
 
 iCard* Rule::last(std::vector<iCard*>& desk) {
-	if (desk.size() == 0) return nullptr;
+	if (desk.empty()) return nullptr;
 	return desk.back();
 }
 
 std::unordered_set<std::string> Rule::shown_ranks(std::vector<iCard*>& desk) {
-	std::unordered_set<std::string> shown;
+	std::unordered_set<std::string> result;
 	for (auto& card : desk)
-		shown.insert(card->rank());
-	return shown;
+		result.insert(card->rank());
+	return result;
 }
 
 Rule::Rule(const iCard* trump) : trump(trump) {}
@@ -23,22 +23,21 @@ Rule::Rule(const iCard* trump) : trump(trump) {}
 std::vector<iCard*> Rule::attack(std::vector<iCard*>& desk, std::vector<iCard*>& inhand) {
 	
 	// If inhand is empty
-	if (inhand.size() == 0) return std::vector<iCard*>();
+	if (inhand.empty()) return std::vector<iCard*>();
 
 	// When the offense board's desktop is empty
 	// you can play every cards.
-	if (desk.size() == 0) return inhand;
+	if (desk.empty()) return inhand;
 
 	// Otherwise, you can only play cards that you have ever shown.
 	std::vector<iCard*> possible;
-	std::unordered_set<std::string> shown = this->shown_ranks(desk);
-	std::unordered_set<std::string>::iterator notexist = shown.end();
+	std::unordered_set<std::string> shown_ranks = this->shown_ranks(desk);
 
 	for (auto& card : inhand) {
 	
 		// Deal with existed card
 		const std::string rank = card->rank();
-		if (shown.find(rank) != notexist)
+		if (shown_ranks.find(rank) != shown_ranks.end())
 			possible.push_back(card);
 	}
 
@@ -48,7 +47,7 @@ std::vector<iCard*> Rule::attack(std::vector<iCard*>& desk, std::vector<iCard*>&
 std::vector<iCard*> Rule::defend(std::vector<iCard*>& desk, std::vector<iCard*>& inhand) {
 
 	// If inhand or desk is empty
-	if (inhand.size() == 0) return inhand;
+	if (inhand.empty()) return std::vector<iCard*>();
 
 	// In defend module, you can play card with bigger or trump card
 	std::vector<iCard*> possible;
@@ -58,19 +57,19 @@ std::vector<iCard*> Rule::defend(std::vector<iCard*>& desk, std::vector<iCard*>&
 	std::string last_suit = last->suit();
 	bool defend_trump = (last_suit == trump_suit);
 
-	for (auto& card : inhand) {
+	for (iCard* card : inhand) {
 
 		std::string card_suit = card->suit();
 
 		// When in the trump defensive mode, 
 		// the current card needs to be greater than the last;
-		if (defend_trump == true) {
+		if (defend_trump) {
 
 			// If it is general card
 			if (card_suit != trump_suit)
 				continue;
 
-			if (card->operator>(last))
+			if (card > last)
 				possible.push_back(card);
 
 			continue;
@@ -86,14 +85,11 @@ std::vector<iCard*> Rule::defend(std::vector<iCard*>& desk, std::vector<iCard*>&
 		// When both cards are not ace, 
 		// check if the two cards are the same suit;
 		if (card_suit == last_suit) {
-
 			// Defensive success when the same suit 
 			// and the current card is larger
-			if (card->operator>(last))
+			if (card > last)
 				possible.push_back(card);
-
 		}
-
 	}
 
 	return possible;
