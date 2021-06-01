@@ -38,8 +38,8 @@ public:
 	void hit(std::string&, std::string&); // hit one card
 
 	std::vector<iCard*> analysis(); // analysis we could play
-	double posibility(iCard* card); // return for one card's posibility
-	double rank(const iCard* card); // return for one card's rank
+	double possibility(iCard* card); // return for one card's possibility
+	double rank(iCard* card); // return for one card's rank
 
 	void transform(); // take in/out our turn's control
 	void toggle(); // change our attack/defend mode

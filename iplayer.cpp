@@ -26,7 +26,7 @@ std::vector<iCard*> iPlayer::analysis(void) {
 		return this->analyzer->defend(desk, total);
 }
 
-double iPlayer::possibility(const iCard* card) {
+double iPlayer::possibility(iCard* card) {
 	
 	std::vector<iCard*>& hand = this->hand();
 	std::vector<iCard*>& unknown = this->unknown();
@@ -66,7 +66,7 @@ double iPlayer::possibility(const iCard* card) {
 	return (c - b) / (a + c - b);
 }
 
-double iPlayer::rank(const iCard* card) {
+double iPlayer::rank(iCard* card) {
 
 	double init = 1.0;
 	init *= Ranker::absolute(card);
