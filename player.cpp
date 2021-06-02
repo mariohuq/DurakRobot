@@ -22,11 +22,9 @@ iPlayer* Player::getenemy(void) const
 
 Player::Player(const char* name)
 {
-    if (manager.trump() == nullptr)
-    {
-        manager.register_card(Dealer::GetTrump());
-        manager.set_trump(manager.icard(Dealer::GetTrump()));
-    }
+
+    manager.register_card(Dealer::GetTrump());
+    manager.set_trump(manager.icard(Dealer::GetTrump()));
 
     // Initialization module
     this->counter = new Counter(
