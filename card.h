@@ -60,6 +60,7 @@ class CardManager
 {
     std::vector<iCard*> all;
     std::unordered_map<std::pair<std::string, std::string>, iCard*> library;
+    // Mapping table between external card and internal card
     std::unordered_map<iCard*, Card*> cardmap;
 public:
     CardManager(void);

@@ -21,7 +21,6 @@ public:
 
 class Player : public PlayerAbstract
 {
-    // Mapping table between external card and internal card
     iPlayer* weinenemy;
     bool ending = false;
 
