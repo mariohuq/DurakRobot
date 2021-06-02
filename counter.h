@@ -16,9 +16,6 @@ public:
     Counter(CardManager&);
     Counter(const Counter& counter);
 
-    // Move out one card from a specified vector
-    static void moveOut(std::vector<iCard*>& set, iCard* target);
-
     int join(iPlayer* player); // join a player
 
     void grab(iPlayer*);

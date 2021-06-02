@@ -4,7 +4,8 @@
 #include "iplayer.h"
 #include "counter.h"
 
-void Counter::moveOut(std::vector<iCard*>& set, iCard* target)
+// Move out one card from a specified vector
+void moveOut(std::vector<iCard*>& set, iCard* target)
 {
     const auto it = std::find(set.begin(), set.end(), target);
     if (it == set.end()) return;
@@ -25,7 +26,7 @@ Counter::Counter(
     }
 
     // Move out trump
-    this->moveOut(this->_unknown, manager.trump());
+    moveOut(this->_unknown, manager.trump());
 }
 
 Counter::Counter(const Counter& counter)
@@ -75,7 +76,7 @@ void Counter::get(iPlayer* player, iCard* card)
 
     this->count[index] += 1;
     inhand.push_back(card);
-    this->moveOut(this->_unknown, card);
+    moveOut(this->_unknown, card);
 }
 
 void Counter::hit(iPlayer* player, iCard* card)
@@ -83,8 +84,8 @@ void Counter::hit(iPlayer* player, iCard* card)
     const int index = player->index();
     std::vector<iCard*>& inhand_ = this->inhand[index];
 
-    this->moveOut(inhand_, card); // for us
-    this->moveOut(this->_unknown, card); // for enemy
+    moveOut(inhand_, card); // for us
+    moveOut(this->_unknown, card); // for enemy
     this->count[index] -= 1;
     this->_desk.push_back(card);
 }
@@ -97,7 +98,7 @@ void Counter::get(iPlayer* player, std::string& rank, std::string& suit)
 
     this->count[index] += 1;
     inhand.push_back(card);
-    this->moveOut(this->_unknown, card);
+    moveOut(this->_unknown, card);
 }
 
 void Counter::hit(iPlayer* player, std::string& rank, std::string& suit)
@@ -106,8 +107,8 @@ void Counter::hit(iPlayer* player, std::string& rank, std::string& suit)
     iCard* card = this->manager->get(rank, suit);
     std::vector<iCard*>& inhand_ = this->inhand[index];
 
-    this->moveOut(inhand_, card); // for us
-    this->moveOut(this->_unknown, card); // for enemy
+    moveOut(inhand_, card); // for us
+    moveOut(this->_unknown, card); // for enemy
     this->count[index] -= 1;
     this->_desk.push_back(card);
 }
