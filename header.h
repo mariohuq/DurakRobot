@@ -33,13 +33,11 @@ static std::unordered_map<std::string, short> iranks = {
     {"9", 7}, {"10", 8}, {"Jack", 9}, {"Queen", 10}, {"King", 11}, {"Ace", 12}
 };
 
-
-
 /* Constants for rule.h */
 constexpr bool attack = true;
 constexpr bool defend = false;
 
-/* Constants for situation.h */
+/* Constants for counter.h */
 constexpr auto fullcard = 6;
 constexpr auto our = true;
 constexpr auto enemies = false;
