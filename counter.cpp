@@ -54,12 +54,10 @@ void Counter::grab(iPlayer* player)
     this->_desk.clear();
 }
 
-void Counter::replenish(iPlayer* player, int count)
+void Counter::replenish(iPlayer* player)
 {
     const int index = player->index();
-    const int current = this->hand_sizes[index];
-    if (count > current)
-        this->hand_sizes[index] = count;
+    this->hand_sizes[index]++;
 }
 
 void Counter::get(iPlayer* player, iCard* card)

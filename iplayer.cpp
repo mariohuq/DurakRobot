@@ -140,7 +140,7 @@ void iPlayer::grab(void)
 }
 void iPlayer::replenish(void)
 {
-    this->counter->replenish(this, global::fullcard);
+    this->counter->replenish(this);
 }
 void iPlayer::get(iCard* card)
 {
