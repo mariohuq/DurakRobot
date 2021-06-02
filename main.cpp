@@ -1,7 +1,5 @@
-
 #include "vld.h"
 
-#include "card.h"
 #include "dealer.h"
 #include "player.h"
 
@@ -13,7 +11,7 @@ int main()
     for (int count = 0; count < 1; count++)
     {
         Dealer::ShuffleDec();
-
+        
         {
             std::cout << "Trump: " << Dealer::SuitName(Dealer::GetTrump()) << std::endl;
         }
@@ -29,7 +27,6 @@ int main()
 
         PlayerAbstract* player1;
         PlayerAbstract* player2;
-        PlayerAbstract* tmp;
 
         if (count % 2)
         {
@@ -116,7 +113,7 @@ int main()
                         Dealer::ClearTable();
                         player2->YouTurn(true);
                         player1->YouTurn(false);
-                        tmp = player2;
+                        PlayerAbstract* tmp = player2;
                         player2 = player1;
                         player1 = tmp;
                     }
@@ -155,9 +152,8 @@ int main()
 
         player1->ShowCards();
         player2->ShowCards();
-
-        std::cout << "\nKonstantin - " << p1win << " Grigory - " << p2win << " drawn " << drawn << std::endl;
     }
+    std::cout << "\nKonstantin - " << p1win << " Grigory - " << p2win << " drawn " << drawn << std::endl;
 
     on_exit();
     return 0;
