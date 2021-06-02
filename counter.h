@@ -22,8 +22,6 @@ public:
     void replenish(iPlayer*, int);
     void hit(iPlayer*, iCard*);
     void get(iPlayer*, iCard*);
-    void hit(iPlayer*, std::string&, std::string&);
-    void get(iPlayer*, std::string&, std::string&);
 
     void clear(void); // clear desk
     std::vector<iCard*>& desk(void); // return desk

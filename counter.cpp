@@ -90,29 +90,6 @@ void Counter::hit(iPlayer* player, iCard* card)
     this->_desk.push_back(card);
 }
 
-void Counter::get(iPlayer* player, std::string& rank, std::string& suit)
-{
-    const int index = player->index();
-    iCard* card = this->manager->get(rank, suit);
-    std::vector<iCard*>& inhand = this->inhand[index];
-
-    this->count[index] += 1;
-    inhand.push_back(card);
-    moveOut(this->_unknown, card);
-}
-
-void Counter::hit(iPlayer* player, std::string& rank, std::string& suit)
-{
-    const int index = player->index();
-    iCard* card = this->manager->get(rank, suit);
-    std::vector<iCard*>& inhand_ = this->inhand[index];
-
-    moveOut(inhand_, card); // for us
-    moveOut(this->_unknown, card); // for enemy
-    this->count[index] -= 1;
-    this->_desk.push_back(card);
-}
-
 std::vector<iCard*>& Counter::desk(void)
 {
     return this->_desk;

@@ -31,13 +31,10 @@ public:
     void replenish(); // get some cards we don't know
     void get(iCard*); // get one card
     void hit(iCard*); // hit one card
-    void get(std::string&, std::string&); // get one card
-    void hit(std::string&, std::string&); // hit one card
 
     std::vector<iCard*> analysis(); // analysis we could play
     double possibility(iCard* card); // return for one card's possibility
     double rank(iCard* card); // return for one card's rank
 
-    void transform(); // take in/out our turn's control
     void toggle(); // change our attack/defend mode
 };

@@ -162,19 +162,6 @@ void iPlayer::hit(iCard* card)
 {
     this->counter->hit(this, card);
 }
-void iPlayer::get(std::string& suit, std::string& rank)
-{
-    this->counter->get(this, suit, rank);
-}
-void iPlayer::hit(std::string& suit, std::string& rank)
-{
-    this->counter->hit(this, suit, rank);
-}
-
-void iPlayer::transform(void)
-{
-    this->_turn = !this->_turn;
-}
 void iPlayer::toggle(void)
 {
     this->_status = !this->_status;
