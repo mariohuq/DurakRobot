@@ -44,8 +44,6 @@ Player::Player(const char* name)
     this->thinker = new Thinker(this->we, this->enemy, this->counter);
 
     this->weinenemy = nullptr;
-    // Initialization flag
-    this->ending = false;
 }
 
 Player::~Player(void)
@@ -76,7 +74,6 @@ void Player::TakeOneCard(Card*& nc)
     // While there is no card for us
     if (target == nullptr)
     {
-        this->ending = true;
         return;
     }
 
@@ -96,12 +93,7 @@ int Player::GetCardNum(void)
 // Return if we need cards
 bool Player::INeedCard(void)
 {
-    // If there is no card for us - ending status
-    if (ending) return false;
-
-    if (this->we->hand_size() < global::fullcard)
-        return true;
-    return false;
+    return this->we->hand_size() < global::fullcard && Dealer::getcurrentCard() < global::total;
 }
 
 // Show all cards in screen

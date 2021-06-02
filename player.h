@@ -21,16 +21,12 @@ public:
 
 class Player : public PlayerAbstract
 {
-    iPlayer* weinenemy;
-    bool ending = false;
-
-protected:
     static CardManager manager;
-
     Counter* counter = nullptr;
-    iPlayer* enemy = nullptr;
     Thinker* thinker = nullptr;
 
+    iPlayer* enemy = nullptr;
+    iPlayer* weinenemy;
     iPlayer* we;
 
 public:
