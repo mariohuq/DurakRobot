@@ -68,7 +68,7 @@ double iPlayer::possibility(iCard* card)
 
     double a = unknown.size();
     double b = hand.size();
-    double c = this->total();
+    double c = this->hand_size();
 
     return (c - b) / (a + c - b);
 }
@@ -93,9 +93,9 @@ double iPlayer::rank(iCard* card)
     return init;
 }
 
-int iPlayer::total(void)
+int iPlayer::hand_size(void)
 {
-    return this->counter->left(this);
+    return this->counter->hand_size(this);
 }
 std::vector<iCard*>& iPlayer::desk(void)
 {
@@ -108,10 +108,6 @@ std::vector<iCard*>& iPlayer::hand(void)
 std::vector<iCard*>& iPlayer::unknown(void)
 {
     return this->counter->unknown();
-}
-bool iPlayer::turn(void) const
-{
-    return this->_turn;
 }
 bool iPlayer::status(void) const
 {

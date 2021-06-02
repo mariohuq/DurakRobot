@@ -90,7 +90,7 @@ void Player::TakeOneCard(Card*& nc)
 // Return card number
 int Player::GetCardNum(void)
 {
-    return this->we->total();
+    return this->we->hand_size();
 }
 
 // Return if we need cards
@@ -99,7 +99,7 @@ bool Player::INeedCard(void)
     // If there is no card for us - ending status
     if (ending) return false;
 
-    if (this->we->total() < global::fullcard)
+    if (this->we->hand_size() < global::fullcard)
         return true;
     return false;
 }

@@ -9,8 +9,8 @@ class Counter
 
     CardManager* manager;
     std::array<iPlayer*, global::players> players; // all players
-    std::array<size_t, global::players> count; // count of every one's cards
-    std::array<std::vector<iCard*>, global::players> inhand; // cards for everyone
+    std::array<size_t, global::players> hand_sizes; // count of every one's cards
+    std::array<std::vector<iCard*>, global::players> hands; // cards for everyone
 
 public:
     Counter(CardManager&);
@@ -26,6 +26,6 @@ public:
     void clear(void); // clear desk
     std::vector<iCard*>& desk(void); // return desk
     std::vector<iCard*>& unknown(void); // return unknown
-    std::vector<iCard*>& hand(iPlayer*); // return inhands for player
-    int left(iPlayer*); // return number of remaining cards for player
+    std::vector<iCard*>& hand(iPlayer*); // return hand for player
+    int hand_size(iPlayer*); // return number of remaining cards for player
 };

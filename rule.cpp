@@ -18,21 +18,21 @@ std::unordered_set<std::string> shown_ranks(std::vector<iCard*>& desk)
     return shown;
 }
 
-std::vector<iCard*> Rule::attack(std::vector<iCard*>& desk, std::vector<iCard*>& inhand)
+std::vector<iCard*> Rule::attack(std::vector<iCard*>& desk, std::vector<iCard*>& hand)
 {
 
-    // If inhand is empty
-    if (inhand.empty()) return std::vector<iCard*>();
+    // If hand is empty
+    if (hand.empty()) return std::vector<iCard*>();
 
     // When the offense board's desktop is empty
     // you can play every cards.
-    if (desk.empty()) return inhand;
+    if (desk.empty()) return hand;
 
     // Otherwise, you can only play cards that you have ever shown.
     std::vector<iCard*> possible;
     std::unordered_set<std::string> shown = shown_ranks(desk);
 
-    for (auto& card : inhand)
+    for (auto& card : hand)
     {
 
         // Deal with existed card
@@ -44,11 +44,11 @@ std::vector<iCard*> Rule::attack(std::vector<iCard*>& desk, std::vector<iCard*>&
     return possible;
 }
 
-std::vector<iCard*> Rule::defend(std::vector<iCard*>& desk, std::vector<iCard*>& inhand)
+std::vector<iCard*> Rule::defend(std::vector<iCard*>& desk, std::vector<iCard*>& hand)
 {
 
-    // If inhand or desk is empty
-    if (inhand.empty()) return inhand;
+    // If hand or desk is empty
+    if (hand.empty()) return hand;
 
     // In defend module, you can play card with bigger or trump card
     std::vector<iCard*> possible;
@@ -57,7 +57,7 @@ std::vector<iCard*> Rule::defend(std::vector<iCard*>& desk, std::vector<iCard*>&
     std::string last_suit = last_card->suit();
     bool defend_trump = last_card->is_trump();
 
-    for (auto& card : inhand)
+    for (auto& card : hand)
     {
 
         std::string card_suit = card->suit();

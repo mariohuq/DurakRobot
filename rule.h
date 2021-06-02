@@ -4,6 +4,6 @@
 
 namespace Rule
 {
-std::vector<iCard*> attack(std::vector<iCard*>& desk, std::vector<iCard*>& inhand); // Analysis for attack
-std::vector<iCard*> defend(std::vector<iCard*>& desk, std::vector<iCard*>& inhand); // Analysis for defend
+std::vector<iCard*> attack(std::vector<iCard*>& desk, std::vector<iCard*>& hand); // Analysis for attack
+std::vector<iCard*> defend(std::vector<iCard*>& desk, std::vector<iCard*>& hand); // Analysis for defend
 };

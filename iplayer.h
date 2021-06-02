@@ -13,14 +13,13 @@ class iPlayer
     Counter* counter;
 
 public:
-    int total(); // return total count of our cards
+    int hand_size(); // return total count of our cards
     std::vector<iCard*>& desk(); // return ref for desk cards
-    std::vector<iCard*>& hand(); // return ref for inhand's cards
+    std::vector<iCard*>& hand(); // return ref for hands's cards
     std::vector<iCard*>& unknown(); // return ref for unknown cards
 
     iPlayer(bool we, bool turn, bool status, std::string name);
     bool us() const; // return if it's our player
-    bool turn() const; // return if it's our turn
     bool status() const; // return status for player
     int index() const; // return index
     std::string name(void) const; // return name
