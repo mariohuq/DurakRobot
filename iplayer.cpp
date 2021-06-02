@@ -52,9 +52,9 @@ double iPlayer::possibility(iCard* card)
 
     // Otherwise, we need calculate possibility
     // let :
-    //		unknown.size() = a
-    //		this.enemy.size() = b
-    //		this.enemy_total = c
+    double a = unknown.size();
+    double b = this->hand().size();
+    double c = this->hand_size();
     //	m = c - b; n = a + m = a + c - b
     //	The problem is equivalent to extracting m from n objects 
     //  and looking for the specified one;
@@ -62,9 +62,6 @@ double iPlayer::possibility(iCard* card)
     //  Its probability is equal to :
     //		C(n-1, m-1)/C(n, m) = m / n = (c - b) / (a + c - b)
 
-    double a = unknown.size();
-    double b = this->hand().size();
-    double c = this->hand_size();
 
     return (c - b) / (a + c - b);
 }

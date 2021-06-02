@@ -18,7 +18,8 @@ public:
     int join(iPlayer* player); // join a player
 
     void grab(iPlayer*);
-    void replenish(iPlayer*, int);
+    // we don't know which cards player has taken
+    void replenish(iPlayer* player, int count);
     void hit(iPlayer*, iCard*);
     void get(iPlayer*, iCard*);
 

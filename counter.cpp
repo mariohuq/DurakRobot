@@ -33,23 +33,25 @@ int Counter::join(iPlayer* player)
 {
     int index = 0;
     for (; index < global::players; index++)
+    {
         if (this->players[index] == nullptr)
         {
             this->players[index] = player;
             return index;
         }
+    }
     return index;
 }
 
 void Counter::grab(iPlayer* player)
 {
-    int index = player->index();
-    std::vector<iCard*>& hand = this->hands[index];
-    std::vector<iCard*>& desk = this->_desk;
-
-    this->hand_sizes[index] += desk.size();
-    for (auto& card : desk) hand.push_back(card);
-    desk.clear();
+    const int index = player->index();
+    this->hand_sizes[index] += this->_desk.size();
+    for (auto& card : this->_desk)
+    {
+        this->hands[index].push_back(card);
+    }
+    this->_desk.clear();
 }
 
 void Counter::replenish(iPlayer* player, int count)
