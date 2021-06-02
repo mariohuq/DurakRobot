@@ -10,7 +10,10 @@ std::vector<iCard*> iPlayer::analysis(void)
     std::vector<iCard*> total;
 
     // The cards on our hands are known
-    if (this->us()) total = this->hand();
+    if (this->us())
+    {
+        total = this->hand();
+    }
     // For enemy need calculate
     else
     {
