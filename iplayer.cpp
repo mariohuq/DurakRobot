@@ -130,7 +130,7 @@ iPlayer::iPlayer(bool we, bool status, std::string name)
     : _index(0)
     , _we(we)
     , _status(status)
-    , _name(name)
+    , _name(std::move(name))
     , counter(nullptr)
 { }
 
