@@ -15,7 +15,7 @@ class iPlayer
 public:
     int hand_size(); // return total count of our cards
     std::vector<iCard*>& desk(); // return ref for desk cards
-    std::vector<iCard*>& hand(); // return ref for hands's cards
+    const std::vector<iCard*>& hand() const; // return ref for hands's cards
     std::vector<iCard*>& unknown(); // return ref for unknown cards
 
     iPlayer(bool we, bool turn, bool status, std::string name);

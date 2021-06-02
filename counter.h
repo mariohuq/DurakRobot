@@ -14,7 +14,6 @@ class Counter
 
 public:
     Counter(CardManager&);
-    Counter(const Counter& counter);
 
     int join(iPlayer* player); // join a player
 
@@ -26,6 +25,6 @@ public:
     void clear(void); // clear desk
     std::vector<iCard*>& desk(void); // return desk
     std::vector<iCard*>& unknown(void); // return unknown
-    std::vector<iCard*>& hand(iPlayer*); // return hand for player
-    int hand_size(iPlayer*); // return number of remaining cards for player
+    const std::vector<iCard*>& hand(const iPlayer*) const; // return hand for player
+    int hand_size(iPlayer*) const; // return number of remaining cards for player
 };

@@ -29,15 +29,6 @@ Counter::Counter(
     moveOut(this->_unknown, manager.trump());
 }
 
-Counter::Counter(const Counter& counter)
-{
-    this->_desk = counter._desk;
-    this->_unknown = counter._unknown;
-    this->players = counter.players;
-    this->hand_sizes = counter.hand_sizes;
-    this->hands = counter.hands;
-}
-
 int Counter::join(iPlayer* player)
 {
     int index = 0;
@@ -102,11 +93,11 @@ void Counter::clear(void)
 {
     this->_desk.clear();
 }
-std::vector<iCard*>& Counter::hand(iPlayer* player)
+const std::vector<iCard*>& Counter::hand(const iPlayer* player) const
 {
     return this->hands[player->index()];
 }
-int Counter::hand_size(iPlayer* player)
+int Counter::hand_size(iPlayer* player) const
 {
     return this->hand_sizes[player->index()];
 }

@@ -17,9 +17,8 @@ std::vector<iCard*> iPlayer::analysis(void)
     // For enemy need calculate
     else
     {
-        std::vector<iCard*>& hand = this->hand();
         std::vector<iCard*>& unknown = this->unknown();
-        total.insert(total.end(), hand.begin(), hand.end());
+        total.insert(total.end(), this->hand().begin(), this->hand().end());
         total.insert(total.end(), unknown.begin(), unknown.end());
     }
 
@@ -33,22 +32,19 @@ std::vector<iCard*> iPlayer::analysis(void)
 
 double iPlayer::possibility(iCard* card)
 {
-
-    std::vector<iCard*>& hand = this->hand();
     std::vector<iCard*>& unknown = this->unknown();
-    std::vector<iCard*>::iterator finder;
 
     // For us if card in hand - 1, otherwise - 0
     if (this->us())
     {
-        finder = std::find(hand.begin(), hand.end(), card);
-        if (finder == hand.end()) return 0.;
+        auto finder = std::find(this->hand().begin(), this->hand().end(), card);
+        if (finder == this->hand().end()) return 0.;
         return 1.;
     }
 
     // For enemy if card in hand - 1
-    finder = std::find(hand.begin(), hand.end(), card);
-    if (finder != hand.end()) return 1.;
+    auto finder = std::find(this->hand().begin(), this->hand().end(), card);
+    if (finder != this->hand().end()) return 1.;
 
     // If card not in unknown, return 0;
     finder = std::find(unknown.begin(), unknown.end(), card);
@@ -67,7 +63,7 @@ double iPlayer::possibility(iCard* card)
     //		C(n-1, m-1)/C(n, m) = m / n = (c - b) / (a + c - b)
 
     double a = unknown.size();
-    double b = hand.size();
+    double b = this->hand().size();
     double c = this->hand_size();
 
     return (c - b) / (a + c - b);
@@ -101,7 +97,7 @@ std::vector<iCard*>& iPlayer::desk(void)
 {
     return this->counter->desk();
 }
-std::vector<iCard*>& iPlayer::hand(void)
+const std::vector<iCard*>& iPlayer::hand(void) const
 {
     return this->counter->hand(this);
 }
