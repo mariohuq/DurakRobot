@@ -39,7 +39,7 @@ class TreeMaker
     iPlayer* attacker; iPlayer* defender;
 
     std::queue<Prediction*> tasks; // tasks queue
-    static Node* complex(iCard*& card, iPlayer*& player);
+    static Node* complex(iCard* card, iPlayer*& player);
     std::vector<Counter*> trashbin;
 
 public:

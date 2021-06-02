@@ -22,7 +22,7 @@ public:
     void hit(iPlayer*, iCard*);
     void get(iPlayer*, iCard*);
 
-    void clear(void); // clear desk
+    void clear_desk(void); // clear desk
     std::vector<iCard*>& desk(void); // return desk
     std::vector<iCard*>& unknown(void); // return unknown
     const std::vector<iCard*>& hand(const iPlayer*) const; // return hand for player

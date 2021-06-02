@@ -6,7 +6,6 @@ class iPlayer
 {
     int _index; // our index
     bool _we; // its our player
-    bool _turn; // our turn or not
     bool _status; // attack or defend
     std::string _name;
 
@@ -18,7 +17,7 @@ public:
     const std::vector<iCard*>& hand() const; // return ref for hands's cards
     std::vector<iCard*>& unknown(); // return ref for unknown cards
 
-    iPlayer(bool we, bool turn, bool status, std::string name);
+    iPlayer(bool we, bool status, std::string name);
     bool us() const; // return if it's our player
     bool status() const; // return status for player
     int index() const; // return index

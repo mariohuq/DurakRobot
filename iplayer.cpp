@@ -129,10 +129,9 @@ bool iPlayer::us(void) const
 {
     return this->_we;
 }
-iPlayer::iPlayer(bool we, bool turn, bool status, std::string name)
+iPlayer::iPlayer(bool we, bool status, std::string name)
     : _index(0)
     , _we(we)
-    , _turn(turn)
     , _status(status)
     , _name(name)
     , counter(nullptr)

@@ -23,7 +23,7 @@ std::vector<Node*>::const_iterator Node::end() const
 }
 
 // Add from initialized node pointer
-void Node::add(Node*& child)
+void Node::add(Node* child)
 {
     child->father_ = this;
     children_.push_back(child);

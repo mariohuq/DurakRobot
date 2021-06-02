@@ -140,7 +140,8 @@ iCard* Thinker::attack(int)
 iCard* Thinker::defend(iCard* action)
 {
     std::map<double, iCard*> record;
-    if (action == nullptr) return nullptr;
+    if (action == nullptr)
+        return nullptr;
 
     Tree* tree = this->maketree(global::defend, action);
     Tree::Parser parser = tree->leaves();
@@ -149,30 +150,32 @@ iCard* Thinker::defend(iCard* action)
     {
         std::stack<Node*> path = parser.yield();
 
-        double rank = this->ranksum(global::defend, path);
+        double rank = ranksum(global::defend, path);
 
         // if there is no possible cards
         // it means that we could not handle attack in this prediction
-        if (path.empty()) continue;
+        if (path.empty())
+            continue;
         path.pop(); // for defend mode we need find second one
-        if (path.empty()) continue;
+        if (path.empty())
+            continue;
 
-        this->showpath(path, rank);
+        showpath(path, rank);
 
         record[rank] = path.top()->get()->card;
     }
 
     delete tree;
     // if no cards can be play, return nullptr
-    if (record.empty()) return nullptr;
+    if (record.empty())
+    {
+        return nullptr;
+    }
 
-    // Return the branch with the lowest weight
-    //auto it = record.end(); it--;
-    auto it = record.begin();
-    return it->second;
+    return record.begin()->second;
 }
 
-Node* TreeMaker::complex(iCard*& card, iPlayer*& player)
+Node* TreeMaker::complex(iCard* card, iPlayer*& player)
 {
     // This function use card to create Node in ***heap***
     double rank, possibility;
@@ -207,12 +210,13 @@ TreeMaker::TreeMaker(
         this->root = this->complex(rootcard, defender);
 
     // generate prediction branch
-    Prediction* prediction = new Prediction;
-    prediction->layer = 0;
-    prediction->mode = mode;
-    prediction->card = rootcard;
-    prediction->father = nullptr;
-    prediction->situation = new Counter(*situation);
+    Prediction* prediction = new Prediction {
+        mode,
+        0,
+        rootcard,
+        nullptr,
+        new Counter(*situation)
+    };
     this->trashbin.push_back(prediction->situation);
 
     // add prediction to tasks queue
@@ -236,16 +240,11 @@ Tree* TreeMaker::make(void)
 
         // Get prediction job
         Prediction* prediction = this->tasks.front();
-        bool mode = prediction->mode;
-        int layer = prediction->layer;
-        iCard* card = prediction->card;
-        Node* father = prediction->father;
-        Counter* situation = prediction->situation;
         this->tasks.pop();
 
         // Get player
         iPlayer* player; iPlayer* passive;
-        if (mode == global::attack)
+        if (prediction->mode == global::attack)
         {
             player = this->attacker;
             passive = this->defender;
@@ -258,21 +257,21 @@ Tree* TreeMaker::make(void)
 
         // Make node and insert to father while not root
         Node* child;
-        if (father == nullptr)
+        if (prediction->father == nullptr)
         {
             child = this->root;
         }
         else
         {
-            child = this->complex(card, player);
-            father->add(child);
+            child = this->complex(prediction->card, player);
+            prediction->father->add(child);
         }
 
         // Make predictions and add new tasks
         {
-            this->attacker->set_counter(situation);
-            this->defender->set_counter(situation);
-            player->hit(card);
+            this->attacker->set_counter(prediction->situation);
+            this->defender->set_counter(prediction->situation);
+            player->hit(prediction->card);
 
             /*
                 If current prediction layer miner global::depth,
@@ -281,25 +280,26 @@ Tree* TreeMaker::make(void)
 
                 Otherwise, stop prediction.
             */
-            if (layer < this->maxlayer)
+            if (prediction->layer < this->maxlayer)
+            {
                 for (auto& card : passive->analysis())
                 {
-                    Prediction* prediction = new Prediction;
-                    prediction->card = card;
-                    prediction->mode = !mode;
-                    prediction->layer = layer + 1;
-                    prediction->father = child;
-                    prediction->situation = \
-                        new Counter(*situation);
-                    this->trashbin.push_back(prediction->situation);
-                    this->tasks.push(prediction);
+                    Prediction* p = new Prediction {
+                        !prediction->mode,
+                        prediction->layer + 1,
+                        card,
+                        child,
+                        new Counter(*prediction->situation)
+                    };
+                    this->trashbin.push_back(p->situation);
+                    this->tasks.push(p);
                 }
+            }
         }
 
-        // Release memeory
+        // Release memory
         delete prediction;
     }
 
-    Tree* tree = new Tree(this->root);
-    return tree;
+    return new Tree(this->root);
 }

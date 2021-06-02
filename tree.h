@@ -20,7 +20,7 @@ public:
     int degree() const;
     Node* father() const;
 
-    void add(Node*& child);
+    void add(Node* child);
     void add(const Data& data);
     void remove(int index);
 

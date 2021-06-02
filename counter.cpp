@@ -89,7 +89,7 @@ std::vector<iCard*>& Counter::unknown(void)
 {
     return this->_unknown;
 }
-void Counter::clear(void)
+void Counter::clear_desk(void)
 {
     this->_desk.clear();
 }

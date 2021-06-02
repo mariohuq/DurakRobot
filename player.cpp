@@ -31,8 +31,8 @@ Player::Player(const char* name)
         manager);
 
     // Initialize the player and the imaginary enemy
-    this->we = new iPlayer(true, false, global::defend, name);
-    this->enemy = new iPlayer(false, false, global::attack, "GoHan");
+    this->we = new iPlayer(true, global::defend, name);
+    this->enemy = new iPlayer(false, global::attack, "GoHan");
 
     this->we->set_counter(this->counter);
     this->we->set_index(this->counter->join(this->we));
@@ -43,8 +43,8 @@ Player::Player(const char* name)
     // Initialization analyzer
     this->thinker = new Thinker(this->we, this->enemy, this->counter);
 
-    // Initialization flag
     this->weinenemy = nullptr;
+    // Initialization flag
     this->ending = false;
 }
 
@@ -65,7 +65,7 @@ void Player::YouTurn(bool status)
         this->we->toggle();
         this->enemy->toggle();
     }
-    this->counter->clear();
+    this->counter->clear_desk();
 }
 
 // Take one card
