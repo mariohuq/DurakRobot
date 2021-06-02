@@ -2,10 +2,11 @@
 
 #include "header.h"
 
-struct Data {
-	double rank;
+struct Data
+{
+    double rank;
     double possibility;
     iCard* card;
 
-	Data(iCard* card, double rank, double possibility);
+    Data(iCard* card, double rank, double possibility);
 };

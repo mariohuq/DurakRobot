@@ -9,162 +9,162 @@ void on_exit();
 
 int main()
 {
-	int p1win = 0, p2win = 0, drawn = 0;
-	for (int count = 0; count < 1; count++)
-	{
-		Dealer::ShuffleDec();
+    int p1win = 0, p2win = 0, drawn = 0;
+    for (int count = 0; count < 1; count++)
+    {
+        Dealer::ShuffleDec();
 
-		{
-			std::cout << "Trump: " << Dealer::SuitName(Dealer::GetTrump()) << std::endl;
-		}
+        {
+            std::cout << "Trump: " << Dealer::SuitName(Dealer::GetTrump()) << std::endl;
+        }
 
-		Card* temp;
-		Player p1("Konstantin");
-		Player p2("Grigory");
+        Card* temp;
+        Player p1("Konstantin");
+        Player p2("Grigory");
 
-		{
-			p1.setwe(p2.getenemy()); 
-			p2.setwe(p1.getenemy());
-		}
+        {
+            p1.setwe(p2.getenemy());
+            p2.setwe(p1.getenemy());
+        }
 
-		PlayerAbstract* player1;
-		PlayerAbstract* player2;
-		PlayerAbstract* tmp;
+        PlayerAbstract* player1;
+        PlayerAbstract* player2;
+        PlayerAbstract* tmp;
 
-		if (count % 2)
-		{
-			p1.YouTurn(true);
-			p2.YouTurn(false);
-			player1 = &p1;
-			player2 = &p2;
+        if (count % 2)
+        {
+            p1.YouTurn(true);
+            p2.YouTurn(false);
+            player1 = &p1;
+            player2 = &p2;
 
-		}
-		else
-		{
-			p1.YouTurn(false);
-			p2.YouTurn(true);
-			player1 = &p2;
-			player2 = &p1;
+        }
+        else
+        {
+            p1.YouTurn(false);
+            p2.YouTurn(true);
+            player1 = &p2;
+            player2 = &p1;
 
-		}
+        }
 
-		//	Player *player = p2;
+        //	Player *player = p2;
 
-		while (player1->INeedCard())
-		{
-			Dealer::GetCard(temp);
-			player1->TakeOneCard(temp);
-		}
-		while (player2->INeedCard())
-		{
-			Dealer::GetCard(temp);
-			player2->TakeOneCard(temp);
-		}
+        while (player1->INeedCard())
+        {
+            Dealer::GetCard(temp);
+            player1->TakeOneCard(temp);
+        }
+        while (player2->INeedCard())
+        {
+            Dealer::GetCard(temp);
+            player2->TakeOneCard(temp);
+        }
 
-		int triknum = 1;
-		while (
-			(player1->GetCardNum() && player2->GetCardNum()) 
-							|| 
-			Dealer::getcurrentCard() < 52
-			)
-		{
-			std::cout << "Round " << triknum++ << ": " << std::endl;
-			while (player1->INeedCard())
-			{
-				Dealer::GetCard(temp);
-				player1->TakeOneCard(temp);
-			}
-			while (player2->INeedCard())
-			{
-				Dealer::GetCard(temp);
-				player2->TakeOneCard(temp);
-			}
+        int triknum = 1;
+        while (
+            (player1->GetCardNum() && player2->GetCardNum())
+            ||
+            Dealer::getcurrentCard() < 52
+            )
+        {
+            std::cout << "Round " << triknum++ << ": " << std::endl;
+            while (player1->INeedCard())
+            {
+                Dealer::GetCard(temp);
+                player1->TakeOneCard(temp);
+            }
+            while (player2->INeedCard())
+            {
+                Dealer::GetCard(temp);
+                player2->TakeOneCard(temp);
+            }
 
-			player1->ShowCards();
-			player2->ShowCards();
-			while (Dealer::NextTrikEnable())
-			{
-				//player1->ShowCards();
-				//player2->ShowCards();
+            player1->ShowCards();
+            player2->ShowCards();
+            while (Dealer::NextTrikEnable())
+            {
+                //player1->ShowCards();
+                //player2->ShowCards();
 
-				player1->PutCard();
-				//Dealer::ShowTable();
-				player2->GetHeadTrick();
-				//Dealer::ShowTable();
-			}
-			Dealer::ShowTable();
-			int kht = Dealer::GetCurrentHeadTrik();
-			// check all cards by pairs
-			if (Dealer::CheckHeadTrick()) //cards are beaten correctly
-			{
-				Card* plastDefCard = Dealer::GetLastDefendCard();
-				Card* plastCard = Dealer::GetLastCard();
-				if (plastDefCard != nullptr)
-				{
-					// if the last card of beating off is "Pas" - player2 takes all cars
-					if (Dealer::RankIndex(plastDefCard) == PAS)
-					{
-						player2->TakeCards();
-						Dealer::ClearTable();
-					}
-					// if the last card, that was played - PAS or NOCARD - change of direction of move, beat off
-					else if ((Dealer::RankIndex(plastCard) == PAS) ||
-						(Dealer::RankIndex(plastCard) == NOCARD) ||
-						(Dealer::GetCurrentHeadTrik() == 6)
-						)
-					{
-						Dealer::ClearTable();
-						player2->YouTurn(true);
-						player1->YouTurn(false);
-						tmp = player2;
-						player2 = player1;
-						player1 = tmp;
-					}
-				}
-			}
-			else
-			{
-				std::cout << "error";
-				on_exit();
-				return 0;
-			}
-		}
+                player1->PutCard();
+                //Dealer::ShowTable();
+                player2->GetHeadTrick();
+                //Dealer::ShowTable();
+            }
+            Dealer::ShowTable();
+            int kht = Dealer::GetCurrentHeadTrik();
+            // check all cards by pairs
+            if (Dealer::CheckHeadTrick()) //cards are beaten correctly
+            {
+                Card* plastDefCard = Dealer::GetLastDefendCard();
+                Card* plastCard = Dealer::GetLastCard();
+                if (plastDefCard != nullptr)
+                {
+                    // if the last card of beating off is "Pas" - player2 takes all cars
+                    if (Dealer::RankIndex(plastDefCard) == PAS)
+                    {
+                        player2->TakeCards();
+                        Dealer::ClearTable();
+                    }
+                    // if the last card, that was played - PAS or NOCARD - change of direction of move, beat off
+                    else if ((Dealer::RankIndex(plastCard) == PAS) ||
+                        (Dealer::RankIndex(plastCard) == NOCARD) ||
+                        (Dealer::GetCurrentHeadTrik() == 6)
+                        )
+                    {
+                        Dealer::ClearTable();
+                        player2->YouTurn(true);
+                        player1->YouTurn(false);
+                        tmp = player2;
+                        player2 = player1;
+                        player1 = tmp;
+                    }
+                }
+            }
+            else
+            {
+                std::cout << "error";
+                on_exit();
+                return 0;
+            }
+        }
 
-		if (!player1->GetCardNum() && !player2->GetCardNum())
-		{
-			drawn++;
-			std::cout << "\ndrawn game\n";
-		}
-		else if (!player1->GetCardNum())
-		{
-			std::cout << "\np1 - win\n";
-			if (player1 == &p1)
-				p1win++;
-			else
-				p2win++;
-		}
+        if (!player1->GetCardNum() && !player2->GetCardNum())
+        {
+            drawn++;
+            std::cout << "\ndrawn game\n";
+        }
+        else if (!player1->GetCardNum())
+        {
+            std::cout << "\np1 - win\n";
+            if (player1 == &p1)
+                p1win++;
+            else
+                p2win++;
+        }
 
-		else if (!player2->GetCardNum())
-		{
-			std::cout << "\np2 - win\n";
-			if (player2 == &p2)
-				p2win++;
-			else
-				p1win++;
-		}
+        else if (!player2->GetCardNum())
+        {
+            std::cout << "\np2 - win\n";
+            if (player2 == &p2)
+                p2win++;
+            else
+                p1win++;
+        }
 
-		player1->ShowCards();
-		player2->ShowCards();
+        player1->ShowCards();
+        player2->ShowCards();
 
-		std::cout << "\nKonstantin - " << p1win << " Grigory - " << p2win << " drawn " << drawn << std::endl;
-	}
+        std::cout << "\nKonstantin - " << p1win << " Grigory - " << p2win << " drawn " << drawn << std::endl;
+    }
 
-	on_exit();
-	return 0;
+    on_exit();
+    return 0;
 }
 
 void on_exit()
 {
-	delete Dealer::GetPas();
-	delete Dealer::GetNocard();
+    delete Dealer::GetPas();
+    delete Dealer::GetNocard();
 }
