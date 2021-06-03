@@ -62,8 +62,10 @@ class CardManager
     std::unordered_map<std::pair<std::string, std::string>, iCard*> library;
     // Mapping table between external card and internal card
     std::unordered_map<iCard*, Card*> cardmap;
-public:
     CardManager(void);
+    static CardManager card_manager_;
+public:
+    static CardManager& instance();
     ~CardManager(void);
     std::vector<iCard*> getall(void);
     iCard* get(std::string&, std::string&);
@@ -73,4 +75,7 @@ public:
     iCard* icard(const Card* card);
     void register_card(Card* card);
     Card* real_card(iCard* card) const;
+
+    CardManager(const CardManager&) = delete;
+    void operator=(const CardManager&) = delete;
 };

@@ -9,7 +9,7 @@
 #include "player.h"
 #include "dealer.h"
 
-CardManager Player::manager {};
+CardManager& Player::manager = CardManager::instance();
 
 void Player::setwe(iPlayer* enemy)
 {

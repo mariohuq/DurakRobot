@@ -20,7 +20,7 @@ public:
 
 class Player : public PlayerAbstract
 {
-    static CardManager manager;
+    static CardManager& manager;
     Counter* counter = nullptr;
     Thinker* thinker = nullptr;
 

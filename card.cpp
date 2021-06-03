@@ -68,6 +68,8 @@ std::ostream& operator<<(std::ostream& out, const iCard& card)
     return out;
 }
 
+CardManager CardManager::card_manager_{};
+
 CardManager::CardManager(void)
 {
     for (auto& suit : global::suits)
@@ -80,6 +82,11 @@ CardManager::CardManager(void)
             this->all.push_back(card);
         }
     }
+}
+
+CardManager& CardManager::instance()
+{
+    return card_manager_;
 }
 
 // Free all memory
