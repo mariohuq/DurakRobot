@@ -21,8 +21,6 @@ public:
     Node* father() const;
 
     void add(Node* child);
-    void add(const Data& data);
-    void remove(int index);
 
     Node* operator[] (int index);
     const Node* operator[] (int index) const;

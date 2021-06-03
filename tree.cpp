@@ -29,20 +29,6 @@ void Node::add(Node* child)
     children_.push_back(child);
 }
 
-// Remove child elements from the specified location
-void Node::remove(const int index)
-{
-    this->children_.erase(children_.begin() + index);
-}
-
-// Add from a Data copy
-void Node::add(const Data& data)
-{
-    Node* child = new Node(data);
-    child->father_ = this;
-    children_.push_back(child);
-}
-
 // Return data_ of current node
 Data* Node::get() const
 {
