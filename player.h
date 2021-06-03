@@ -7,8 +7,7 @@ struct Card;
 class PlayerAbstract
 {
 public:
-    virtual ~PlayerAbstract()
-    { }
+    virtual ~PlayerAbstract() = default;
     virtual void YouTurn(bool) = 0;
     virtual void PutCard() = 0;
     virtual void TakeCards() = 0;
